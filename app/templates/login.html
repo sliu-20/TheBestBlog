@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head> 
+		<title> {{ name }} </title>
+	</head>
+	
+	<body>
+		<span style="text-decoration:bold;color:#ff0000"> {{error}} </span> <br>
+		<form method="POST" action="{{ action }}"> 
+			Username: <input type="text" name="username"> <br>
+			Password: <input type="password" name="password"> <br>
+			<input type="submit" value="{{ name }}">
+		</form>
+	</body>
+
+</html>
