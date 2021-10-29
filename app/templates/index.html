@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}{{ name }}{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <h1>Home</h1>
+  <ul>
+    <li>My blogs</li>
+    <li>All blogs</li>
+    <li>Random Blog</li>
+    <li>Edit blogs</li>
+  </ul>
+{% endblock %}
