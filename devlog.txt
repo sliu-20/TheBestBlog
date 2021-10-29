@@ -23,3 +23,7 @@ jonathanW -- 2021-10-29 02:37
 
 Edited the README.md to display roster roles.
 Edited the CSS file and HTML file (layout.html) to render the css properly.
+
+cameronN -- 2021-10-30 09:05
+
+Edited app.py to use werkzeug's password hashing
