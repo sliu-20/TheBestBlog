@@ -27,3 +27,7 @@ Edited the CSS file and HTML file (layout.html) to render the css properly.
 cameronN -- 2021-10-30 09:05
 
 Edited app.py to use werkzeug's password hashing
+
+jonathanW -- 2021-10-30 09:20
+
+Worked on templates and the html files.
