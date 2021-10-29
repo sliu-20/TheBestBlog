@@ -1,0 +1,4 @@
+cameronN -- 2021-10-27 8:00
+
+Added code for server to create necessary database file (if doesn't exist),
+Created login & signup pages (Signup does create a database entry for the user, login rn just checks that database basically [no session or anything])
