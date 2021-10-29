@@ -5,6 +5,12 @@ Created login & signup pages (Signup does create a database entry for the user, 
 
 kevinC [add here]
 
-cameroN -- 2021-10-27 9:00
+cameronN -- 2021-10-27 9:00
 
 Created style.css and put header & footer on the login / signup page (one template)
+
+cameronN -- 2021-10-28 20:35
+
+Edited design doc based on classmate feedback:
+- Tweaked file tree & Front End Sitemap
+- Clarified purpose of each database in description.
