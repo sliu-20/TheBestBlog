@@ -25,5 +25,9 @@ If you use windows, you may have to run source `~/blogenv/scripts/activate` inst
 If that works, your terminal should appear something like this: <br>
 `(blogenv) ~/TheBestBlog/app/`
 
-If that's correct, just run 
+If that's correct, run 
+`pip install flask`
+
+Wait for that to complete, and then
+
 `python3 app.py` and the webserver should start up and start serving pages.
