@@ -18,3 +18,8 @@ cameronN -- 2021-10-28 20:35
 Edited design doc based on classmate feedback:
 - Tweaked file tree & Front End Sitemap
 - Clarified purpose of each database in description.
+
+jonathanW -- 2021-10-29 02:37
+
+Edited the README.md to display roster roles.
+Edited the CSS file and HTML file (layout.html) to render the css properly.
