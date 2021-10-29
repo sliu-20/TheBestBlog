@@ -2,5 +2,3 @@ Requirements:
 
 flask
 (pip install flask)
-bcrypt
-(pip install bcrypt)
