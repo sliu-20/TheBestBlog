@@ -7,13 +7,17 @@
     {% endblock %}
   </head>
   <body>
-    <div id="nav">
-      <header>  
-        <a href="/login">Login</a>
-        <a href="/signup">Signup</a>
-      </header>
-    </div>
-    <div id="content">{% block content %}{% endblock %}</div>
+      <nav>
+        <div class = "navbar">
+          <ul class = "menu">
+            <li><a href="/login">Login</a></li>
+            <li><a href="/signup">Signup</a></li>
+          </ul>
+        </div>
+      </nav>
+      <sub>
+      {% block content %}{% endblock %}
+      </sub>
     <footer>
       {% block footer %} Created by The Best Cameron</a>. {% endblock %}
     </footer>
