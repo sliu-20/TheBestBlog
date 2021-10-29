@@ -2,7 +2,7 @@ import os
 import sqlite3
 import re
 from flask import Flask, render_template, request, session, redirect
-import bcrypt
+import werkzeug.security
 
 MAIN_DB = "blogs.db"
 
@@ -24,8 +24,6 @@ db.commit()
 db.close()
 
 app = Flask(__name__)
-salt = bcrypt.gensalt()
-
 
 @app.route("/blog")
 def fetch_page():
@@ -65,10 +63,10 @@ def signup():
                 if ' ' in list(password) or '\\' in list(password):
                     db.close()
                     return render_template("login.html", action="/signup", name="Sign Up", error="Passwords cannot contain spaces or backslashes.")
-                password = password.encode('utf-8')
+                password = str(password)
                 if len(password) > 7 and len(password) <= 50:
                     c.execute("""INSERT INTO USERS (USERNAME,HASH) VALUES (?,?)""",
-                              (request.form['username'], bcrypt.hashpw(password, salt),))
+                              (request.form['username'],werkzeug.security.generate_password_hash(password),))
                     db.commit()
                     c.execute(
                         """SELECT USERNAME FROM USERS WHERE USERNAME = ?;""", (request.form['username'],))
@@ -103,7 +101,7 @@ def login():
             if (hashed == None):
                 return render_template("login.html", name="Login", action="/login", error="User does not exist.")
             else:
-                if bcrypt.checkpw((request.form['password']).encode('utf-8'), hashed[0]):
+                if werkzeug.check_password_hash(hashed[0],(request.form['password']).encode('utf-8')):
                     return "Logged in!"
                 else:
                     return render_template("login.html", name="Login", action="/login", error="Password is incorrect")
