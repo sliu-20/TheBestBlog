@@ -25,6 +25,12 @@ db.close()
 
 app = Flask(__name__)
 
+
+@app.route("/")
+def main_page():
+    return render_template("index.html")
+
+
 @app.route("/blog")
 def fetch_page():
     db = sqlite3.connect(MAIN_DB)
