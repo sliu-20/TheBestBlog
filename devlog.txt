@@ -28,6 +28,10 @@ cameronN -- 2021-10-30 09:05
 
 Edited app.py to use werkzeug's password hashing
 
+kevinC -- 2021-10-30 9:15
+
+Added home page route to app.py and created index.html.
+
 jonathanW -- 2021-10-30 09:20
 
 Worked on templates and the html files.
