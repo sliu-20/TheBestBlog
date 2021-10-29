@@ -24,6 +24,11 @@ db.commit()
 db.close()
 
 app = Flask(__name__)
+app.secret_key = os.urandom(32)
+
+@app.route("/")
+def home_page():
+    return render_template("index.html")
 
 @app.route("/blog")
 def fetch_page():
@@ -91,17 +96,21 @@ def signup():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == "POST":
+        if 'username' in session:
+            return "Already logged in!"
         if 'username' in request.form and 'password' in request.form:
             db = sqlite3.connect(MAIN_DB)
             c = db.cursor()
             c.execute("""SELECT HASH FROM USERS WHERE USERNAME = ?;""",
-                      ((request.form['username']).encode('utf-8'),))
+                      (request.form['username'],))
             hashed = c.fetchone()  # [0]
+            print("Hashed: " + str(hashed))
             db.close()
             if (hashed == None):
                 return render_template("login.html", name="Login", action="/login", error="User does not exist.")
             else:
-                if werkzeug.check_password_hash(hashed[0],(request.form['password']).encode('utf-8')):
+                if werkzeug.security.check_password_hash(hashed[0],request.form['password']):
+                    session['username'] = request.form['username']
                     return "Logged in!"
                 else:
                     return render_template("login.html", name="Login", action="/login", error="Password is incorrect")
@@ -110,7 +119,11 @@ def login():
     else:
         return render_template("login.html", action="/login", name="Login")
 
-
+@app.route("/logout")
+def logout():
+    session.pop('username', default=None)
+    return redirect("/")
+    
 if __name__ == "__main__":
     app.debug = True
     app.run()
