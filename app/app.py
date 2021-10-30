@@ -44,7 +44,7 @@ def fetch_page():
     # db.commit() no edits
     db.close()
 
-    return filename
+    return filename;
 
 
 @app.route("/signup", methods=['GET', 'POST'])
@@ -123,7 +123,21 @@ def login():
 def logout():
     session.pop('username', default=None)
     return redirect("/")
-    
+   
+@app.route("/view")
+def view_blog():
+    if ('a' in request.args and 'id' in request.args):
+        db = sqlite3.connect(MAIN_DB)
+        c = db.cursor()
+        c.execute("SELECT ROWID FROM BLOGS WHERE AUTHOR = ? AND ROWID = ?",(request.args['a'],request.args['id']))
+        f = c.fetchone()
+        if (f != None):
+            f = "blogs/" + str(f[0]) + ".txt"
+            file = open(f)
+            file = file.read()
+            return file
+    return "Blog doesn't exist!"
+   
 if __name__ == "__main__":
     app.debug = True
     app.run()
