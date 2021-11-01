@@ -12,7 +12,9 @@ c.execute("""
 CREATE TABLE IF NOT EXISTS BLOGS (
     ROWID   INTEGER PRIMARY KEY,
     NAME    TEXT    NOT NULL,
-    AUTHOR  TEXT    NOT NULL
+    AUTHOR  TEXT    NOT NULL,
+    BID     INTEGER NOT NULL
+
 );""")
 c.execute("""
 CREATE TABLE IF NOT EXISTS USERS (
@@ -47,23 +49,6 @@ def new_blog_page():
 @app.route("/")
 def home_page():
     return render_template("index.html")
-
-@app.route("/blog")
-def fetch_page():
-    db = sqlite3.connect(MAIN_DB)
-    c = db.cursor()
-
-    filename = None
-    if 'page' in request.args:
-        c.execute("""SELECT ROWID FROM BLOGS WHERE NAME = ?;""",
-                  (request.args['page'],))
-        filename = str(c.fetchone()[0]) + ".txt"
-
-    # db.commit() no edits
-    db.close()
-
-    return filename;
-
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
@@ -147,7 +132,7 @@ def view_blog():
     if ('a' in request.args and 'id' in request.args):
         db = sqlite3.connect(MAIN_DB)
         c = db.cursor()
-        c.execute("SELECT ROWID FROM BLOGS WHERE AUTHOR = ? AND ROWID = ?",(request.args['a'],request.args['id']))
+        c.execute("SELECT ROWID FROM BLOGS WHERE AUTHOR = ? AND BID = ?",(request.args['a'],request.args['id']))
         f = c.fetchone()
         if (f != None):
             f = "blogs/" + str(f[0]) + ".txt"
@@ -155,7 +140,23 @@ def view_blog():
             file = file.read()
             return file
     return "Blog doesn't exist!"
-   
+
+@app.route("/create",methods=['GET','POST'])
+def create_blog():
+    if 'username' in session:
+        if request.method == "POST":
+            db = sqlite3.connect(MAIN_DB)
+            c = db.cursor()
+            c.execute("SELECT ROWID FROM BLOGS WHERE AUTHOR = ?;",(session['username'],))
+            bid = 0
+            while (c.fetchone() != None):
+                bid += 1
+                db.close()
+                #"INSERT INTO BLOGS (NAME,AUTHOR,BID) VALUES"              
+                return str(bid)
+            return """<!DOCTYPE html> <html> <body> <form action='/create' method='POST'> Name of Blog: <input type=text name=name> <br> Contents: <input type=text name=contents> <br> <input type=submit value=Submit> </form></body> </html>"""
+    return "Must be Logged in to create a blog!" + str(session)
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
