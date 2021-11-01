@@ -40,7 +40,12 @@ cameronN -- 2021-10-30 19:07
 
 Wrote initial code for viewing blogs.
 
+jonathanW -- 2021-10-31 23:09
+
+Edited the layout page. Scrapped the style.css for now to redo later.
+
 alifA -- 2021-10-31 23:26
 
 Set up basic navbar link and template rendering functions to handle creation of new blogs.
 Made a TODO comment of next steps to take to further blog creation capabilities.
+
