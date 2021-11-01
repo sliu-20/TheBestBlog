@@ -39,3 +39,7 @@ Worked on templates and the html files.
 cameronN -- 2021-10-30 19:07
 
 Wrote initial code for viewing blogs.
+
+jonathanW -- 2021-10-31 23:09
+
+Edited the layout page. Scrapped the style.css for now to redo later.
