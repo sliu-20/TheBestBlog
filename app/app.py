@@ -26,6 +26,24 @@ db.close()
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
+'''
+TODO: new_blog_page()
+- needs to render blog.html template file
+- blog.html should have an html form that will
+  POST its data to a write_blog() function that will
+  create a text file with the user's response to the html
+  form.
+- The text file will be placed into a blogs folder to
+  be accessed later on. The path to that file will be inserted
+  into the blogs table in blogs.db. The name of the text file
+  will be the Unique ROWID in the blogs table of the
+  corresponding path to the file.
+
+'''
+@app.route("/blogpost")
+def new_blog_page():
+    return render_template("index.html")
+
 @app.route("/")
 def home_page():
     return render_template("index.html")
