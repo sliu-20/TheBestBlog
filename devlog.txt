@@ -49,4 +49,7 @@ jonathanW -- 2021-11-1 01:15
 
 Edited the layout page and redid the style.css to be "better"
 
+cameronN -- 2021-11-1 09:45
+
+Wrote code for creating blog along with Alif (thx bro)
 

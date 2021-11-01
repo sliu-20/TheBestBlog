@@ -144,19 +144,24 @@ def view_blog():
 
 @app.route("/create",methods=['GET','POST'])
 def create_blog():
-    if session.get('username') != None:
+    if 'username' in session:
         if request.method == "POST":
             db = sqlite3.connect(MAIN_DB)
             c = db.cursor()
-            c.execute("SELECT ROWID FROM BLOGS WHERE AUTHOR = ?;",(session['username'],))
+            c.execute("""SELECT ROWID FROM BLOGS WHERE AUTHOR = ?;""",(session['username'],))
             bid = 0
             while (c.fetchone() != None):
                 bid += 1
-                db.close()
-                #"INSERT INTO BLOGS (NAME,AUTHOR,BID) VALUES"              
-                return str(bid)
-            return """<!DOCTYPE html> <html> <body> <form action='/create' method='POST'> Name of Blog: <input type=text name=name> <br> Contents: <input type=text name=contents> <br> <input type=submit value=Submit> </form></body> </html>"""
-    print(session)
+            c.execute("""INSERT INTO BLOGS (NAME,AUTHOR,BID) VALUES (?,?,?);""",(request.form['name'],session['username'],bid,))
+            c.execute("""SELECT ROWID FROM BLOGS WHERE AUTHOR = ? AND BID = ?;""",(session['username'],bid,))
+            filename = "blogs/" + str(c.fetchone()[0]) + ".txt"
+            db.commit()
+            db.close()
+            file = open(filename,"wt")
+            file.write(request.form['contents'])
+            file.close()
+            return str(bid)
+        return """<!DOCTYPE html> <html> <body> <form action='/create' method='POST'> Name of Blog: <input type=text name=name> <br> Contents: <input type=text name=contents> <br> <input type=submit value=Submit> </form></body> </html>"""  
     return "Must be Logged in to create a blog!"
 
 if __name__ == "__main__":
