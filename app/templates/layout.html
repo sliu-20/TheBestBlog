@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<! link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/style.css">
 <html>
   <head>
     {% block head %}
@@ -7,15 +7,23 @@
     {% endblock %}
   </head>
   <body>
-
-      <a href="/">Home</a>
-      <a href="/login">Login</a>
-      <a href="/signup">Signup</a>
-      <a href="/blogpost">New Blog (W.I.P.)</a></li>
-      {% block content %}{% endblock %}
-
+    <nav>
+      <div id="navbuttons">
+        <c><a href="/"> Home </a></c>
+        <a href="/login"> Login </a>
+        <a href="/signup"> Signup </a>
+        <a href="/blogpost"> New Blog (W.I.P.) </a>
+      </div>
+    </nav>
+    <content>
+      <div id="bodycontent">
+        {% block content %} {% endblock %}
+      </div>
+    </content>
     <footer>
-      {% block footer %} Created by The Best Cameron. {% endblock %}
+      {% block footer %}
+      Created by: The Best Cameron | Cameron Nelson, Kevin Cao, Alif Abdullah, Jonathan Wu
+      {% endblock %}
     </footer>
   </body>
 </html>
