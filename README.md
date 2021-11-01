@@ -26,7 +26,7 @@ If that works, your terminal should appear something like this: <br>
 `(blogenv) ~/TheBestBlog/app/`
 
 If that's correct, run <br>
-`pip -r ../requirements.txt`
+`pip install -r ../requirements.txt`
 
 Wait for that to complete, and then
 
