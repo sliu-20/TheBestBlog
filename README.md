@@ -25,8 +25,8 @@ If you use windows, you may have to run source `~/blogenv/scripts/activate` inst
 If that works, your terminal should appear something like this: <br>
 `(blogenv) ~/TheBestBlog/app/`
 
-If that's correct, run 
-`pip install flask`
+If that's correct, run <br>
+`pip install -r ../requirements.txt`
 
 Wait for that to complete, and then
 
