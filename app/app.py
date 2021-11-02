@@ -42,10 +42,6 @@ TODO: new_blog_page()
   corresponding path to the file.
 
 '''
-@app.route("/blogpost")
-def new_blog_page():
-    return render_template("index.html")
-
 @app.route("/")
 def home_page():
     return render_template("index.html")
@@ -160,7 +156,7 @@ def create_blog():
             file = open(filename,"wt")
             file.write(request.form['contents'])
             file.close()
-            return str(bid)
+            return redirect("/view?a=" + str(session['username']) + "&id=" + str(bid));
         return """<!DOCTYPE html> <html> <body> <form action='/create' method='POST'> Name of Blog: <input type=text name=name> <br> Contents: <input type=text name=contents> <br> <input type=submit value=Submit> </form></body> </html>"""
     return "Must be Logged in to create a blog!"
 
