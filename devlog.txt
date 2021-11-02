@@ -56,3 +56,4 @@ Wrote code for creating blog along with Alif (thx bro)
 jonathanW -- 2021-11-2 11:59
 
 Continued to work on frontend HTML for the major layout pages as well as the CSS.
+Also edited some of the app.py code to render some pages properly.
