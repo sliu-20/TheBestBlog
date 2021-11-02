@@ -57,3 +57,7 @@ jonathanW -- 2021-11-2 11:59
 
 Continued to work on frontend HTML for the major layout pages as well as the CSS.
 Also edited some of the app.py code to render some pages properly.
+
+cameronN -- 2021-11-2 14:21
+
+Made create blog redirect so that user can see blog once created. 
