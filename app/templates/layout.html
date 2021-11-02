@@ -8,15 +8,17 @@
   </head>
   <body>
     <nav>
+      <div class = "innernav">
         <a id="home" href="/"> Home </a>
         <div class = "navbuttons">
-          <a href="/login"> Login </a>
-          <a href="/signup"> Signup </a>
-          <a href="/create"> New Blog (W.I.P.) </a>
+          <a id="login" href="/login"> Login </a>
+          <a id="signup" href="/signup"> Signup </a>
+          <a id="create" href="/create"> New Blog (W.I.P.) </a>
         </div>
+      </div>
     </nav>
     <content>
-      <div class="bodycontent">
+      <div class = "bodycontent">
         {% block content %} {% endblock %}
       </div>
     </content>
