@@ -8,15 +8,15 @@
   </head>
   <body>
     <nav>
-      <div id="navbuttons">
-        <c><a href="/"> Home </a></c>
-        <a href="/login"> Login </a>
-        <a href="/signup"> Signup </a>
-        <a href="/create"> New Blog (W.I.P.) </a>
-      </div>
+        <a id="home" href="/"> Home </a>
+        <div class = "navbuttons">
+          <a href="/login"> Login </a>
+          <a href="/signup"> Signup </a>
+          <a href="/create"> New Blog (W.I.P.) </a>
+        </div>
     </nav>
     <content>
-      <div id="bodycontent">
+      <div class="bodycontent">
         {% block content %} {% endblock %}
       </div>
     </content>
