@@ -70,3 +70,7 @@ kevinC -- 2021-11-3 09:10
 
 Edited layout.html to display different things depending if they are logged in or not.
 Fixed alignment issue in all pages.
+
+cameronN -- 2021-11-3 09:12
+
+passed username into templates so jinja can read username
