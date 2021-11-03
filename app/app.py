@@ -36,7 +36,7 @@ app.secret_key = os.urandom(32)
 # Function to render homepage
 @app.route("/")
 def home_page():
-    return render_template("index.html")
+    return render_template("index.html",user=session.get('username'))
 
 # Signup function
 @app.route("/signup", methods=['GET', 'POST'])
@@ -57,16 +57,16 @@ def signup():
                 # Check to see if user follows formatting
                 if re.match('^[a-zA-Z 0-9\_]*$', username.decode('utf-8')) == None:
                     db.close()
-                    return render_template("login.html", action="/signup", name="Sign Up", error="Username can only contain alphanumeric characters and underscores.")
+                    return render_template("login.html",user=session.get('username'),action="/signup", name="Sign Up", error="Username can only contain alphanumeric characters and underscores.")
                 # Check to see if username is of proper length
                 if len(username) < 5 or len(username) > 15:
                     db.close()
-                    return render_template("login.html", action="/signup", name="Sign Up", error="Usernames must be between 5 and 15 characters long")
+                    return render_template("login.html",user=session.get('username'), action="/signup", name="Sign Up", error="Usernames must be between 5 and 15 characters long")
                 password = request.form['password']
                 # Checking for illegal characters in password
                 if ' ' in list(password) or '\\' in list(password):
                     db.close()
-                    return render_template("login.html", action="/signup", name="Sign Up", error="Passwords cannot contain spaces or backslashes.")
+                    return render_template("login.html",user=session.get('username'), action="/signup", name="Sign Up", error="Passwords cannot contain spaces or backslashes.")
                 password = str(password)
                 # Checking to see if password follows proper length
                 if len(password) > 7 and len(password) <= 50:
@@ -78,26 +78,26 @@ def signup():
                     exists = c.fetchone()
                     db.close()
                     if (exists != None):
-                        return render_template("login.html", action="/login", name="Login", error="Signed up successfully!")
+                        return render_template("login.html",user=session.get('username'), action="/login", name="Login", error="Signed up successfully!")
                     else:
-                        return render_template("login.html", action="/signup", name="Sign Up", error="Some error occurred. Please try signing up again.")
+                        return render_template("login.html",user=session.get('username'), action="/signup", name="Sign Up", error="Some error occurred. Please try signing up again.")
                 else:
                     db.close()
-                    return render_template("login.html", action="/signup", name="Sign Up", error="Password must be between 8 and 50 characters long")
+                    return render_template("login.html",user=session.get('username'), action="/signup", name="Sign Up", error="Password must be between 8 and 50 characters long")
             else:
                 db.close()
-                return render_template("login.html", action="/signup", name="Sign Up", error="Username already exists")
+                return render_template("login.html",user=session.get('username'), action="/signup", name="Sign Up", error="Username already exists")
         else:
-            return render_template("login.html", action="/signup", name="Sign Up", error="Some error occurred. Please try signing up again.")
+            return render_template("login.html",user=session.get('username'), action="/signup", name="Sign Up", error="Some error occurred. Please try signing up again.")
     else:
-        return render_template("login.html", action="/signup", name="Sign Up")
+        return render_template("login.html",user=session.get('username'), action="/signup", name="Sign Up")
 
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == "POST":
         if 'username' in session:
-            return render_template("index.html", message = "Already logged in!")
+            return render_template("index.html",user=session.get('username'), message = "Already logged in!")
         if 'username' in request.form and 'password' in request.form:
             db = sqlite3.connect(MAIN_DB)
             c = db.cursor()
@@ -107,18 +107,18 @@ def login():
             print("Hashed: " + str(hashed))
             db.close()
             if (hashed == None):
-                return render_template("login.html", name="Login", action="/login", error="User does not exist.")
+                return render_template("login.html",user=session.get('username'), name="Login", action="/login", error="User does not exist.")
             else:
                 if werkzeug.security.check_password_hash(hashed[0],request.form['password']):
                     session['username'] = request.form['username']
                     #print(str(session))
-                    return render_template("index.html", message="Logged in!")
+                    return render_template("index.html",user=session.get('username'), message="Logged in!")
                 else:
-                    return render_template("login.html", name="Login", action="/login", error="Password is incorrect")
+                    return render_template("login.html",user=session.get('username'), name="Login", action="/login", error="Password is incorrect")
         else:
-            return render_template("login.html", name="Login", action="/login", error="An error occurred. Please try logging in again.")
+            return render_template("login.html",user=session.get('username'), name="Login", action="/login", error="An error occurred. Please try logging in again.")
     else:
-        return render_template("login.html", action="/login", name="Login")
+        return render_template("login.html",user=session.get('username'), action="/login", name="Login")
 
 # Logout function
 @app.route("/logout")
@@ -140,8 +140,8 @@ def view_blog():
             f = "blogs/" + str(f[0]) + ".txt"
             file = open(f)
             contents = file.read()
-            return render_template("view.html",title=name,byUser=request.args['a'],blog_content=contents) #contents
-    return render_template("index.html", message = "Blog doesn't exist!")
+            return render_template("view.html",user=session.get('username'),title=name,byUser=request.args['a'],blog_content=contents) #contents
+    return render_template("index.html",user=session.get('username'), message = "Blog doesn't exist!")
     
 @app.route("/create",methods=['GET','POST'])
 def create_blog():
@@ -162,7 +162,7 @@ def create_blog():
             file.write(request.form['contents'])
             file.close()
             return redirect("/view?a=" + str(session['username']) + "&id=" + str(bid));
-        return render_template("create.html")
+        return render_template("create.html",user=session.get('username'))
     return render_template("index.html", message = "Must be logged in to create a blog!")
 
 if __name__ == "__main__":

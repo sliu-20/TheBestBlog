@@ -65,3 +65,12 @@ Made create blog redirect so that user can see blog once created.
 jonathanW -- 2021-11-2 22:00
 
 Edited the app.py so that the create page renders the correct html page and that the redirection also goes to the correct pages.
+
+kevinC -- 2021-11-3 09:10
+
+Edited layout.html to display different things depending if they are logged in or not.
+Fixed alignment issue in all pages.
+
+cameronN -- 2021-11-3 09:12
+
+passed username into templates so jinja can read username
