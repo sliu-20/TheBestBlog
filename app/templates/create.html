@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}{{ name }}{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <form action='/create' method='POST'>
+    Name of Blog: <input type=text name=name> <br>
+    Contents: <input type=text name=contents> <br>
+    <input type=submit value=Submit>
+  </form>
+{% endblock %}
