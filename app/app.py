@@ -110,7 +110,7 @@ def login():
             else:
                 if werkzeug.security.check_password_hash(hashed[0],request.form['password']):
                     session['username'] = request.form['username']
-                    print(str(session))
+                    #print(str(session))
                     return render_template("index.html", message="Logged in!")
                 else:
                     return render_template("login.html", name="Login", action="/login", error="Password is incorrect")
@@ -124,7 +124,7 @@ def logout():
     session.pop('username', default=None)
     return redirect("/")
 
-@app.route("/view")
+@app.route("/view",methods=['GET','POST'])
 def view_blog():
     if ('a' in request.args and 'id' in request.args):
         db = sqlite3.connect(MAIN_DB)
@@ -135,8 +135,8 @@ def view_blog():
             f = "blogs/" + str(f[0]) + ".txt"
             file = open(f)
             file = file.read()
-            return file
-    return "Blog doesn't exist!"
+            return render_template("view.html", blog_content = file)
+    return render_template("index.html", message = "Blog doesn't exist!")
 
 @app.route("/create",methods=['GET','POST'])
 def create_blog():
@@ -157,8 +157,8 @@ def create_blog():
             file.write(request.form['contents'])
             file.close()
             return redirect("/view?a=" + str(session['username']) + "&id=" + str(bid));
-        return """<!DOCTYPE html> <html> <body> <form action='/create' method='POST'> Name of Blog: <input type=text name=name> <br> Contents: <input type=text name=contents> <br> <input type=submit value=Submit> </form></body> </html>"""
-    return "Must be Logged in to create a blog!"
+        return render_template("create.html")
+    return render_template("index.html", message = "Must be logged in to create a blog!")
 
 if __name__ == "__main__":
     app.debug = True
