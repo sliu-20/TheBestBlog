@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/style.css" />
 <html>
   <head>
     {% block head %}
@@ -8,24 +8,26 @@
   </head>
   <body>
     <nav>
-      <div class = "innernav">
+      <div class="innernav">
         <a id="home" href="/"> Home </a>
-        <div class = "navbuttons">
+        <div class="navbuttons">
+          {% if username %}
+          <p id="username">{{ username }}</p>
+          <a id="logout" href="/"> Logout </a>
+          {% else %}
           <a id="login" href="/login"> Login </a>
           <a id="signup" href="/signup"> Signup </a>
+          {% endif %}
           <a id="create" href="/create"> New Blog (W.I.P.) </a>
         </div>
       </div>
     </nav>
     <content>
-      <div class = "bodycontent">
-        {% block content %} {% endblock %}
-      </div>
+      <div class="bodycontent">{% block content %} {% endblock %}</div>
     </content>
     <footer>
-      {% block footer %}
-      Created by: The Best Cameron | Cameron Nelson, Kevin Cao, Alif Abdullah, Jonathan Wu
-      {% endblock %}
+      {% block footer %} Created by: The Best Cameron | Cameron Nelson, Kevin
+      Cao, Alif Abdullah, Jonathan Wu {% endblock %}
     </footer>
   </body>
 </html>
