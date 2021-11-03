@@ -131,11 +131,14 @@ def view_blog():
         c = db.cursor()
         c.execute("SELECT ROWID FROM BLOGS WHERE AUTHOR = ? AND BID = ?",(request.args['a'],request.args['id']))
         f = c.fetchone()
+        c.execute("SELECT NAME FROM BLOGS WHERE AUTHOR = ? AND BID = ?",(request.args['a'],request.args['id']))
+        name = c.fetchone()[0]
+        db.close()
         if (f != None):
             f = "blogs/" + str(f[0]) + ".txt"
             file = open(f)
-            file = file.read()
-            return file
+            contents = file.read()
+            return render_template("view.html",title=name,byUser=request.args['a'],blog_content=contents) #contents
     return "Blog doesn't exist!"
 
 @app.route("/create",methods=['GET','POST'])
