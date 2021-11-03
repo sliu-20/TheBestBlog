@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<link rel="stylesheet" href="/static/css/style.css">
-<html>
-  <head>
-	<title> {{title}} </title>
-  </head>
-
-  <body>
+{% extends "layout.html" %}
+{% block title %}{{ name }}{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
     <h1> {{title}} </h1>
-    <h3> by: {{byUser}} </h3>
-	
+
+    <h3> {{byUser}} </h3>
     <br>
     {{blog_content}}
-  </body>
-
-</html>
+{% endblock %}
