@@ -76,3 +76,7 @@ Fixed alignment issue in all pages.
 cameronN -- 2021-11-3 09:12
 
 passed username into templates so jinja can read username
+
+alifA -- 2021-11-3 09:18
+
+Commented on several blocks of code in app.py
