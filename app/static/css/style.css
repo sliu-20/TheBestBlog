@@ -20,7 +20,7 @@ nav {
   margin-right: auto;
 }
 
-#home, #login, #signup, #create {
+#home, #login, #signup, #create, #username {
   display: flex;
   align-items: center;
   height:100%;
