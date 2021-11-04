@@ -127,22 +127,36 @@ def logout():
     session.pop('username', default=None)
     return redirect("/")
 
-@app.route("/random_blog",methods=['GET','POST'])
+@app.route("/all")
+def all_blogs():
+    results = list()
+    db = sqlite3.connect(MAIN_DB)
+    c = db.cursor()
+    if ('a' in request.args):
+        c.execute("SELECT * FROM BLOGS WHERE AUTHOR = ?;",(request.args['a'],));
+        results = c.fetchall();
+    else:
+        c.execute("SELECT * FROM BLOGS;");
+        results = c.fetchall();
+    db.close()
+    return str(results)
+    return render_template("all.html",user=session.get('username'),blogs=results)
+        
+@app.route("/random")
 def random_blog():
     db = sqlite3.connect(MAIN_DB)
     c = db.cursor()
-    c.execute("SELECT ROWID, NAME, AUTHOR FROM BLOGS")
+    c.execute("SELECT * FROM BLOGS")
     allRows = c.fetchall()
+    if (len(allRows) == 0):
+        return redirect("/")
     chosenRow = randint(0,len(allRows)-1)
-    txt_file_name = allRows[chosenRow][0]
-    blog_title = allRows[chosenRow][1]
+    bid = allRows[chosenRow][3]
     author = allRows[chosenRow][2]
     print(allRows[chosenRow])
-    file = open("blogs/" + str(txt_file_name) + ".txt")
-    contents = file.read()
-    return render_template("view.html",title=blog_title,byUser=author,blog_content=contents)
+    return redirect("/view?a=" + author + "&id=" + str(bid));
 
-@app.route("/view",methods=['GET','POST'])
+@app.route("/view")
 def view_blog():
     if ('a' in request.args and 'id' in request.args):
         db = sqlite3.connect(MAIN_DB)
