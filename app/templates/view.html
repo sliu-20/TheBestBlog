@@ -4,9 +4,14 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-    <h1> {{title}} </h1>
+    <h1> Blog Title: {{title}} </h1>
 
-    <h3> {{byUser}} </h3>
+    <h3> Author: {{byUser}} </h3>
     <br>
-    {{blog_content}}
+    Blog Content: {{blog_content}}
+
+    <br> <br> <br>
+    <form action="/">
+    <input type="submit" value="Home">
+    </form>
 {% endblock %}

@@ -2,12 +2,16 @@ import os
 import sqlite3
 import re
 from flask import Flask, render_template, request, session, redirect
+from random import randint
 import werkzeug.security
 
 MAIN_DB = "blogs.db"
 
+# Creation of db file
 db = sqlite3.connect(MAIN_DB)
 c = db.cursor()
+
+# Blog table creation
 c.execute("""
 CREATE TABLE IF NOT EXISTS BLOGS (
     ROWID   INTEGER PRIMARY KEY,
@@ -16,6 +20,8 @@ CREATE TABLE IF NOT EXISTS BLOGS (
     BID     INTEGER NOT NULL
 
 );""")
+
+# User table creation
 c.execute("""
 CREATE TABLE IF NOT EXISTS USERS (
     ROWID       INTEGER PRIMARY KEY,
@@ -28,46 +34,42 @@ db.close()
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
-'''
-TODO: new_blog_page()
-- needs to render blog.html template file
-- blog.html should have an html form that will
-  POST its data to a write_blog() function that will
-  create a text file with the user's response to the html
-  form.
-- The text file will be placed into a blogs folder to
-  be accessed later on. The path to that file will be inserted
-  into the blogs table in blogs.db. The name of the text file
-  will be the Unique ROWID in the blogs table of the
-  corresponding path to the file.
-
-'''
+# Function to render homepage
 @app.route("/")
 def home_page():
     return render_template("index.html",user=session.get('username'))
 
+# Signup function
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
+    # Obtaining query from html form
     if request.method == "POST":
+        # Checking if required values in query exist using key values
         if 'username' in request.form and 'password' in request.form:
             db = sqlite3.connect(MAIN_DB)
             c = db.cursor()
+            # Obtaining data from database
             c.execute("""SELECT USERNAME FROM USERS WHERE USERNAME = ?;""",
                       (request.form['username'],))
             exists = c.fetchone()
+            # Checking to see if the username that the person signing up gave has not been made
             if (exists == None):
                 username = (request.form['username']).encode('utf-8')
+                # Check to see if user follows formatting
                 if re.match('^[a-zA-Z 0-9\_]*$', username.decode('utf-8')) == None:
                     db.close()
                     return render_template("login.html",user=session.get('username'),action="/signup", name="Sign Up", error="Username can only contain alphanumeric characters and underscores.")
+                # Check to see if username is of proper length
                 if len(username) < 5 or len(username) > 15:
                     db.close()
                     return render_template("login.html",user=session.get('username'), action="/signup", name="Sign Up", error="Usernames must be between 5 and 15 characters long")
                 password = request.form['password']
+                # Checking for illegal characters in password
                 if ' ' in list(password) or '\\' in list(password):
                     db.close()
                     return render_template("login.html",user=session.get('username'), action="/signup", name="Sign Up", error="Passwords cannot contain spaces or backslashes.")
                 password = str(password)
+                # Checking to see if password follows proper length
                 if len(password) > 7 and len(password) <= 50:
                     c.execute("""INSERT INTO USERS (USERNAME,HASH) VALUES (?,?)""",
                               (request.form['username'],werkzeug.security.generate_password_hash(password),))
@@ -119,10 +121,26 @@ def login():
     else:
         return render_template("login.html",user=session.get('username'), action="/login", name="Login")
 
+# Logout function
 @app.route("/logout")
 def logout():
     session.pop('username', default=None)
     return redirect("/")
+
+@app.route("/random_blog",methods=['GET','POST'])
+def random_blog():
+    db = sqlite3.connect(MAIN_DB)
+    c = db.cursor()
+    c.execute("SELECT ROWID, NAME, AUTHOR FROM BLOGS")
+    allRows = c.fetchall()
+    chosenRow = randint(0,len(allRows)-1)
+    txt_file_name = allRows[chosenRow][0]
+    blog_title = allRows[chosenRow][1]
+    author = allRows[chosenRow][2]
+    print(allRows[chosenRow])
+    file = open("blogs/" + str(txt_file_name) + ".txt")
+    contents = file.read()
+    return render_template("view.html",title=blog_title,byUser=author,blog_content=contents)
 
 @app.route("/view",methods=['GET','POST'])
 def view_blog():

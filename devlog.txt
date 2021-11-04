@@ -69,8 +69,20 @@ Edited the app.py so that the create page renders the correct html page and that
 kevinC -- 2021-11-3 09:10
 
 Edited layout.html to display different things depending if they are logged in or not.
+Make logout button actually log someone out.
 Fixed alignment issue in all pages.
+
 
 cameronN -- 2021-11-3 09:12
 
 passed username into templates so jinja can read username
+
+alifA -- 2021-11-3 09:18
+
+Commented on several blocks of code in app.py
+
+alifA -- 2021-11-3 21:20
+
+Added Random Blog button to home page to index.html and created a random blog viewer function based on Cameron's methodology for viewing a single blog (you're the man, Cameron). 
+Added Home button to view.html page.
+Added Blog Title:, Author:, and Blog Content: text to view.html to clarify the text appearing on that page.

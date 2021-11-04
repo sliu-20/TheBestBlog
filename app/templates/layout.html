@@ -11,9 +11,9 @@
       <div class="innernav">
         <a id="home" href="/"> Home </a>
         <div class="navbuttons">
-          {% if username %}
-          <p id="username">{{ username }}</p>
-          <a id="logout" href="/"> Logout </a>
+          {% if user %}
+          <p id="username">{{ user }}</p>
+          <a id="logout" href="/logout"> Logout </a>
           {% else %}
           <a id="login" href="/login"> Login </a>
           <a id="signup" href="/signup"> Signup </a>
