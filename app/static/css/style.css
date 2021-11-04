@@ -20,7 +20,7 @@ nav {
   margin-right: auto;
 }
 
-#home, #login, #signup, #create, #username {
+#home, #login, #signup, #create, #username, #logout {
   display: flex;
   align-items: center;
   height:100%;
@@ -28,7 +28,7 @@ nav {
   padding-right: 5px;
 }
 
-#home:hover, #login:hover, #signup:hover, #create:hover {
+#home:hover, #login:hover, #signup:hover, #create:hover, #logout:hover, #username:hover {
   transition: all 0.3s ease;
   background-color: pink;
   text-shadow: 0px 0px 1px black;
@@ -49,7 +49,7 @@ content {
   display:flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  padding-top: 10px;
   top:5%;
   left:0px;
   height: 90%;

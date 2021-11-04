@@ -154,6 +154,7 @@ def random_blog():
     bid = allRows[chosenRow][3]
     author = allRows[chosenRow][2]
     print(allRows[chosenRow])
+    db.close()
     return redirect("/view?a=" + author + "&id=" + str(bid));
 
 @app.route("/view")
@@ -172,7 +173,7 @@ def view_blog():
             contents = file.read()
             return render_template("view.html",user=session.get('username'),title=name,byUser=request.args['a'],blog_content=contents) #contents
     return render_template("index.html",user=session.get('username'), message = "Blog doesn't exist!")
-    
+
 @app.route("/create",methods=['GET','POST'])
 def create_blog():
     if 'username' in session:
