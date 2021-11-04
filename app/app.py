@@ -2,6 +2,7 @@ import os
 import sqlite3
 import re
 from flask import Flask, render_template, request, session, redirect
+from random import randint
 import werkzeug.security
 
 MAIN_DB = "blogs.db"
@@ -125,6 +126,21 @@ def login():
 def logout():
     session.pop('username', default=None)
     return redirect("/")
+
+@app.route("/random_blog",methods=['GET','POST'])
+def random_blog():
+    db = sqlite3.connect(MAIN_DB)
+    c = db.cursor()
+    c.execute("SELECT ROWID, NAME, AUTHOR FROM BLOGS")
+    allRows = c.fetchall()
+    chosenRow = randint(0,len(allRows)-1)
+    txt_file_name = allRows[chosenRow][0]
+    blog_title = allRows[chosenRow][1]
+    author = allRows[chosenRow][2]
+    print(allRows[chosenRow])
+    file = open("blogs/" + str(txt_file_name) + ".txt")
+    contents = file.read()
+    return render_template("view.html",title=blog_title,byUser=author,blog_content=contents)
 
 @app.route("/view",methods=['GET','POST'])
 def view_blog():
