@@ -140,7 +140,7 @@ def random_blog():
     print(allRows[chosenRow])
     file = open("blogs/" + str(txt_file_name) + ".txt")
     contents = file.read()
-    return render_template("view.html",title=blog_title,byUser=author,blog_content=contents)
+    return render_template("view.html",title=blog_title,byUser=author,blog_content=contents, user=session.get('username'))
 
 @app.route("/view",methods=['GET','POST'])
 def view_blog():
@@ -158,7 +158,7 @@ def view_blog():
             contents = file.read()
             return render_template("view.html",user=session.get('username'),title=name,byUser=request.args['a'],blog_content=contents) #contents
     return render_template("index.html",user=session.get('username'), message = "Blog doesn't exist!")
-    
+
 @app.route("/create",methods=['GET','POST'])
 def create_blog():
     if 'username' in session:
