@@ -140,6 +140,7 @@ def all_blogs():
 
     my = False;
     # my_blog function
+    print(request.args);
     if ('a' in request.args and request.args['a'] == 't' and 'username' in session):
         c.execute("SELECT * FROM BLOGS WHERE AUTHOR = ?;",(session['username'],));
         results = c.fetchall();
