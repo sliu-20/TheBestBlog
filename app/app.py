@@ -139,9 +139,9 @@ def all_blogs():
         c.execute("SELECT * FROM BLOGS;");
         results = c.fetchall();
     db.close()
-    return str(results)
+    #return str(results)
     return render_template("all.html",user=session.get('username'),blogs=results)
-        
+
 @app.route("/random")
 def random_blog():
     db = sqlite3.connect(MAIN_DB)
