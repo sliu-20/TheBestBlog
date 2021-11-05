@@ -140,7 +140,6 @@ def all_blogs():
 
     my = False;
     # my_blog function
-    print(request.args);
     if ('a' in request.args and request.args['a'] == 't' and 'username' in session):
         c.execute("SELECT * FROM BLOGS WHERE AUTHOR = ?;",(session['username'],));
         results = c.fetchall();
@@ -150,6 +149,8 @@ def all_blogs():
         results = c.fetchall();
     db.close()
     #return str(results)
+
+    print(my);
     return render_template("all.html",user=session.get('username'),my=my,blogs=results)
 
 @app.route("/random")
