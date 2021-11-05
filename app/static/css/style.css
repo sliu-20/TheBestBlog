@@ -46,6 +46,10 @@ nav {
 
 /*--------------------body css---------------------*/
 
+overflow:scroll {
+    overflow-y: scroll;
+}
+
 content {
   position: absolute;
   display:flex;
@@ -64,7 +68,7 @@ content {
   padding-left: 20px;
   padding-right: 20px;
   word-wrap: break-word;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 body {
@@ -103,6 +107,22 @@ input[type=text]:focus, input[type=password]:focus {
   background-color: #c4ecec;
   transition: all 0.5s ease;
   outline: none;
+}
+
+textarea {
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 12px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    resize: none;
+}
+
+textarea:focus {
+    background-color: #c4ecec;
+    transition: all 0.5s ease;
+    outline: none;
 }
 
 #mainlinks {
