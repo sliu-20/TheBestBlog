@@ -26,6 +26,8 @@ nav {
   height:100%;
   padding-left: 5px;
   padding-right: 5px;
+  color: black;
+  text-decoration: none;
 }
 
 #home:hover, #login:hover, #signup:hover, #create:hover, #logout:hover, #username:hover {
@@ -49,32 +51,73 @@ content {
   display:flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding-top: 10px;
   top:5%;
   left:0px;
   height: 90%;
   width:100%;
 }
 
-/* .bodycontent {
-  left: 0;
-  right: 0;
-  margin: auto;
-  padding-top: 5px;
-  height: 100%;
+.bodycontent {
   width: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
-a {
-  color: black;
-  text-decoration: none;
+  height: 100%;
+  background-color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 25px;
+  word-wrap: break-word;
+  overflow: hidden;
 }
 
 body {
   background-color: #c4ecec;
+}
+
+input[type=text], input[type=password] {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: #3CBC8D;
+  border: 1px solid black;
+  border-radius: 2px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+input[type=submit] {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: #87CEEB;
+  width: 100%;
+  border: none;
+  padding: 6px 10px;
+  box-sizing: border-box;
+}
+
+input[type=submit]:hover {
+  background-color: pink;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #c4ecec;
+  transition: all 0.5s ease;
+  outline: none;
+}
+
+#mainlinks {
+  list-style-type: none;
+}
+
+/*---------------------viewing css---------------------*/
+
+/*---------------------error css---------------------*/
+
+#error_message {
+  color: red;
+  text-decoration: bold;
 }
 
 /*---------------------footer css---------------------*/
