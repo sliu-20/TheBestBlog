@@ -34,10 +34,12 @@ db.close()
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
+
 # Function to render homepage
 @app.route("/")
 def home_page():
     return render_template("index.html",user=session.get('username'))
+
 
 # Signup function
 @app.route("/signup", methods=['GET', 'POST'])
@@ -121,11 +123,13 @@ def login():
     else:
         return render_template("login.html",user=session.get('username'), action="/login", name="Login")
 
+    
 # Logout function
 @app.route("/logout")
 def logout():
     session.pop('username', default=None)
     return redirect("/")
+
 
 # Code to view all blogs/blogs for one user
 @app.route("/all")
@@ -133,17 +137,19 @@ def all_blogs():
     results = list()
     db = sqlite3.connect(MAIN_DB)
     c = db.cursor()
-    
+
+    my = False;
     # my_blog function
     if ('a' in request.args and 'a' == 't' and 'username' in session):
         c.execute("SELECT * FROM BLOGS WHERE AUTHOR = ?;",(session['username'],));
         results = c.fetchall();
+        my = True
     else:
         c.execute("SELECT * FROM BLOGS;");
         results = c.fetchall();
     db.close()
     #return str(results)
-    return render_template("all.html",user=session.get('username'),blogs=results)
+    return render_template("all.html",user=session.get('username'),my=my,blogs=results)
 
 @app.route("/random")
 def random_blog():
@@ -159,6 +165,7 @@ def random_blog():
     print(allRows[chosenRow])
     db.close()
     return redirect("/view?a=" + author + "&id=" + str(bid));
+
 
 @app.route("/view")
 def view_blog():
@@ -176,7 +183,6 @@ def view_blog():
             contents = file.read()
             return render_template("view.html",user=session.get('username'),title=name,byUser=request.args['a'],blog_content=contents) #contents
     return render_template("index.html",user=session.get('username'), message = "Blog doesn't exist!")
-
 
 
 @app.route("/create",methods=['GET','POST'])
