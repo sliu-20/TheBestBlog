@@ -1,3 +1,8 @@
+The Best Cameron - Cameron Nelson, Kevin Cao, Jonathan Wu, Alif Abdullah
+SoftDev
+P00 -- The Best Blog
+2021-11-5
+
 cameronN -- 2021-10-27 20:00
 
 Added code for server to create necessary database file (if doesn't exist),
@@ -93,3 +98,7 @@ Edited the layout.html and edited the css to our PM's request.
 jonathanW -- 2021-11-5 2:03
 
 Added more to the style.css and html files. Added a new HTML file for viewing al blogs as well (changed some code in app.py).
+
+cameronN -- 2021-11-5 9:13
+
+Generated new design doc 
