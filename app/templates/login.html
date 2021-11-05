@@ -4,8 +4,10 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <span style="text-decoration: bold; color: #ff0000"> {{error}} </span>
-  <br/>
+  <h1> Please Login </h1>
+  <div id = "error_message">
+     <p> {{error}} <p>
+  </div>
   <form method="POST" action="{{ action }}">
     Username: <input type="text" name="username" /> <br/>
     Password: <input type="password" name="password" /> <br/>

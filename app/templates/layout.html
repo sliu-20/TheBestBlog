@@ -12,18 +12,20 @@
         <a id="home" href="/"> Home </a>
         <div class="navbuttons">
           {% if user %}
-          <p id="username">Welcome, {{ user }} </u></p>
+          <p id="username">{{ user }} </u></p>
           <a id="logout" href="/logout"> Logout </a>
           {% else %}
           <a id="login" href="/login"> Login </a>
           <a id="signup" href="/signup"> Signup </a>
           {% endif %}
-          <a id="create" href="/create"> New Blog (W.I.P.) </a>
+          <a id="create" href="/create"> New Blog </a>
         </div>
       </div>
     </nav>
     <content>
-      <div class="bodycontent">{% block content %} {% endblock %}</div>
+      <div class="bodycontent">
+        {% block content %} {% endblock %}
+      </div>
     </content>
     <footer>
       {% block footer %} Created by: The Best Cameron | Cameron Nelson, Kevin

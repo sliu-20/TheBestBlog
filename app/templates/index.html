@@ -4,12 +4,20 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-  {{ message }} <br/>
-  <h1>Home</h1> <br/>
+  {% if user %}
+  <h1>Welcome to The Best Blog, <u>{{ user }}</u>. </h1>
+  {% else %}
+  <h1>Welcome to The Best Blog </h1>
+  {% endif %}
+  <div id = "error_message">
+    {{ message }}
+  </div>
+  <p> What will you do today? </p>
   <ul>
-    <li>My blogs</li>
-    <li>All blogs</li>
-    <li>Edit blogs</li>
-    <li><a href="/random">Random Blog</a></li>
+    <div id = "mainlinks">
+      <li>My Blogs</li>
+      <li><a href="/all">All Blogs</a></li>
+      <li><a href="/random">Random Blog</a></li>
+    </div>
   </ul>
 {% endblock %}

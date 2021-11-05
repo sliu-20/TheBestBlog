@@ -4,9 +4,7 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-    <h1> Blog Title: {{title}} </h1>
-
-    <h3> Author: {{byUser}} </h3>
-    <br>
-    Blog Content: {{blog_content}}
+    <h1> {{title}} </h1>
+    <h4> By {{byUser}} </h4>
+    {{blog_content}}
 {% endblock %}

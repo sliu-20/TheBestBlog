@@ -4,6 +4,7 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
+  <h1> Create a New Blog </h1>
   <form action='/create' method='POST'>
     Name of Blog: <input type=text name=name> <br>
     Contents: <input type=text name=contents> <br>
