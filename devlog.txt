@@ -102,3 +102,7 @@ Added more to the style.css and html files. Added a new HTML file for viewing al
 cameronN -- 2021-11-5 9:13
 
 Generated new design doc 
+
+kevinC -- 2021-11-5 9:21
+
+Fixed some css. Made the input for create blog a text area. Added a scroll bar.
