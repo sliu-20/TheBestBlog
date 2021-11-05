@@ -89,3 +89,7 @@ Added Blog Title:, Author:, and Blog Content: text to view.html to clarify the t
 jonathanW -- 2021-11-4 9:15
 
 Edited the layout.html and edited the css to our PM's request.
+
+jonathanW -- 2021-11-5 2:03
+
+Added more to the style.css and html files. Added a new HTML file for viewing al blogs as well (changed some code in app.py).
