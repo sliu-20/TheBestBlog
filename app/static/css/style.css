@@ -30,7 +30,7 @@ nav {
   text-decoration: none;
 }
 
-#home:hover, #login:hover, #signup:hover, #create:hover, #logout:hover, #username:hover {
+#home:hover, #login:hover, #signup:hover, #create:hover, #logout:hover {
   transition: all 0.3s ease;
   background-color: pink;
   text-shadow: 0px 0px 1px black;
@@ -63,7 +63,6 @@ content {
   background-color: white;
   padding-left: 20px;
   padding-right: 20px;
-  border-radius: 25px;
   word-wrap: break-word;
   overflow: hidden;
 }
@@ -75,7 +74,6 @@ body {
 input[type=text], input[type=password] {
   margin-top: 5px;
   margin-bottom: 5px;
-  background-color: #3CBC8D;
   border: 1px solid black;
   border-radius: 2px;
   padding: 12px 20px;
