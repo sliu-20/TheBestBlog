@@ -127,13 +127,16 @@ def logout():
     session.pop('username', default=None)
     return redirect("/")
 
+# Code to view all blogs/blogs for one user
 @app.route("/all")
 def all_blogs():
     results = list()
     db = sqlite3.connect(MAIN_DB)
     c = db.cursor()
-    if ('a' in request.args):
-        c.execute("SELECT * FROM BLOGS WHERE AUTHOR = ?;",(request.args['a'],));
+    
+    # my_blog function
+    if ('a' in request.args and 'a' == 't' and 'username' in session):
+        c.execute("SELECT * FROM BLOGS WHERE AUTHOR = ?;",(session['username'],));
         results = c.fetchall();
     else:
         c.execute("SELECT * FROM BLOGS;");
@@ -173,6 +176,8 @@ def view_blog():
             contents = file.read()
             return render_template("view.html",user=session.get('username'),title=name,byUser=request.args['a'],blog_content=contents) #contents
     return render_template("index.html",user=session.get('username'), message = "Blog doesn't exist!")
+
+
 
 @app.route("/create",methods=['GET','POST'])
 def create_blog():
