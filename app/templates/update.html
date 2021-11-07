@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}{{ name }}{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+	<br>
+	<form action="/update" method="POST">
+        Blog to update:
+        <select name="bid">
+			{% for item in blogs %}
+			<option value="{{ item[3] }}">{{ item[1] }}</option>
+			{% endfor %}
+		</select>
+		<br> <br>
+		<textarea rows=20 name=contents></textarea> <br>
+		<input type=submit value=Submit>
+    </form>
+{% endblock %}

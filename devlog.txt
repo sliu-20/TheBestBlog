@@ -110,3 +110,7 @@ Fixed some css. Made the input for create blog a text area. Added a scroll bar.
 cameronN -- 2021-11-6 12:50
 
 Fixed my blogs (/all) page and all.html template
+
+cameronN -- 2021-11-7 11:53
+
+Allowed user to add additional entries to their blog and allow other users to view those entries
