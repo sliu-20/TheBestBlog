@@ -5,12 +5,12 @@
 {% endblock %}
 {% block content %}
   {% if my == true -%}
-    <h1> Your Blogs </h1>
+    <h1> Your Blogs <a id="update" href="/update"> (Update) </a> </h1>
     {% for item in blogs %}
       <p><li><a href="/view?a={{ item[2] }}&id={{item[3]}}">
-        {{ item[1] }} 
+        {{ item[1] }}
       </a></li><p>
-    {% endfor %}  
+    {% endfor %}
   {% else -%}
     <h1> All Blogs </h1>
     {% for item in blogs %}
@@ -18,5 +18,5 @@
         {{ item[1] }} by {{ item[2] }}
       </a></li><p>
     {% endfor %}
-  {% endif %}  
+  {% endif %}
 {% endblock %}
