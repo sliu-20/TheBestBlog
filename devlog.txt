@@ -101,7 +101,7 @@ Added more to the style.css and html files. Added a new HTML file for viewing al
 
 cameronN -- 2021-11-5 9:13
 
-Generated new design doc 
+Generated new design doc
 
 kevinC -- 2021-11-5 9:21
 
@@ -114,3 +114,7 @@ Fixed my blogs (/all) page and all.html template
 cameronN -- 2021-11-7 11:53
 
 Allowed user to add additional entries to their blog and allow other users to view those entries
+
+jonathanW -- 2021-11-8 9:07
+
+Minor updates to html files and css.
