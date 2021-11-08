@@ -118,3 +118,7 @@ Allowed user to add additional entries to their blog and allow other users to vi
 jonathanW -- 2021-11-8 9:07
 
 Minor updates to html files and css.
+
+cameronN -- 2021-11-8 9:20
+
+Made whitespace display properly while viewing blogs

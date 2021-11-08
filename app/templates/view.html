@@ -6,12 +6,13 @@
 {% block content %}
     <h1> {{title}} </h1>
     <h4> By {{byUser}} </h4>
-    {% for entry in blog_content %}
+    {% for entry in blog_content|reverse %}
 		{% if loop.index != 1 %}
 		<br> <hr> <br>
 		{% endif %}
 		{% for i in entry %}
-            {{ i }}
-            <br>
+		  {{ i }}
+             	  <br>
+		{% endfor %}
 	{% endfor %}
 {% endblock %}

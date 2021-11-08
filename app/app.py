@@ -179,8 +179,11 @@ def view_blog():
             f = "blogs/" + str(f[0]) + ".txt"
             file = open(f)
             entries = file.read().split("\n\t\t\t\t\t\t\t\t\n")
-            print (entries);
-            return render_template("view.html",user=session.get('username'),title=name,byUser=request.args['a'],blog_content=entries) #contents
+            #print (entries);
+            entrieslines = list()
+            for entry in entries:
+                entrieslines.append(entry.split("\n"))
+            return render_template("view.html",user=session.get('username'),title=name,byUser=request.args['a'],blog_content=entrieslines) #contents
     return render_template("index.html",user=session.get('username'), message = "Blog doesn't exist!")
 
 
