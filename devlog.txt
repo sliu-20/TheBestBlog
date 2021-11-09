@@ -135,3 +135,8 @@ Fix formatting and add update link to each individual blog
 cameronN -- 2021-11-9 9:22
 
 removed password hashing
+fixed bug when trying to update when you have no blogs
+
+cameronN -- 2021-11-9 9:48
+
+made it so when you go to update your blogs from a specific blog that blog is the default selection

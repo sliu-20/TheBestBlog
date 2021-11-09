@@ -9,7 +9,9 @@
         Blog to update:
         <select name="bid">
 			{% for item in blogs %}
-			<option value="{{ item[3] }}">{{ item[1] }}</option>
+			<option value="{{ item[3] }}" 
+			{% if item[3] == selectedid %} selected	{% endif %}
+			>{{ item[1] }}</option>
 			{% endfor %}
 		</select>
 		<br> <br>

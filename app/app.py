@@ -178,6 +178,10 @@ def random_blog():
 
 @app.route("/view")
 def view_blog():
+    """ 
+        - Fetches filename from SQL database for given user and BID
+        - Renders contents of file using jinja2 templating
+    """
     if ('a' in request.args and 'id' in request.args):
         db = sqlite3.connect(MAIN_DB)
         c = db.cursor()
@@ -194,7 +198,7 @@ def view_blog():
             entrieslines = list()
             for entry in entries:
                 entrieslines.append(entry.split("\n"))
-            return render_template("view.html",user=session.get('username'),title=name,byUser=request.args['a'],blog_content=entrieslines) #contents
+            return render_template("view.html",user=session.get('username'),title=name,blog_id=request.args['id'],byUser=request.args['a'],blog_content=entrieslines) #contents
     return render_template("index.html",user=session.get('username'), message = "Blog doesn't exist!")
 
 
@@ -228,12 +232,14 @@ def create_blog():
 @app.route("/update",methods=['GET','POST'])
 def update_blog():
     if 'username' in session:
+        db = sqlite3.connect(MAIN_DB)
+        c = db.cursor()
+        c.execute("""SELECT ROWID FROM BLOGS WHERE AUTHOR = ?;""",(session['username'],))
+        if (c.fetchone() == None):
+            db.close()
+            return render_template("index.html",user=session.get('username'), message="You have no blogs!")
+            
         if request.method == "POST":
-            db = sqlite3.connect(MAIN_DB)
-            c = db.cursor()
-            c.execute("""SELECT ROWID FROM BLOGS WHERE AUTHOR = ?;""",(session['username'],))
-            if (c.fetchone() == None):
-                return render_template("index.html",user=session.get('username'), message="You have no blogs!")
             c.execute("""SELECT ROWID FROM BLOGS WHERE AUTHOR = ? AND BID = ?;""",(session['username'],int(request.form['bid']),))
             filename = "blogs/" + str(c.fetchone()[0]) + ".txt"
             db.close()
@@ -244,12 +250,17 @@ def update_blog():
             file.close()
             return redirect("/view?a=" + str(session['username']) + "&id=" + request.form['bid']);
 
-        db = sqlite3.connect(MAIN_DB)
-        c = db.cursor()
         c.execute("""SELECT * FROM BLOGS WHERE AUTHOR = ?;""",(session['username'],))
         blogs = c.fetchall()
         db.close()
-        return render_template("update.html",user=session.get('username'),blogs=blogs)
+        selectedid = request.args.get('s')
+        if selectedid == None:
+            selectedid = -1
+        else:
+            selectedid = int(selectedid)
+            
+        return render_template("update.html",user=session.get('username'),blogs=blogs,selectedid=selectedid)
+        
     return render_template("index.html", message = "Must be logged in to create a blog!")
 
 
