@@ -131,3 +131,7 @@ Made whitespace display properly while viewing blogs
 kevinC -- 2021-11-9 9:17
 
 Fix formatting and add update link to each individual blog
+
+cameronN -- 2021-11-9 9:22
+
+removed password hashing
