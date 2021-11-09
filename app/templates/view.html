@@ -7,7 +7,7 @@
     <h1> {{ title }} </h1>
     <h4> By {{ byUser }} </h4>
     {% if byUser == user %}
-    <a id="update" href="/update">(Update)</a> <a id="update" href="/edit?a={{ byUser }}&id={{ blog_id }}">(Edit)</a>
+    <a id="update" href="/update">(Update)</a> <a id="update" href="/edit?a={{ byUser }}&id={{ blog_id }}">(Edit)</a> <br><br>
     {% endif %}
     {% for entry in blog_content|reverse %}
 		{% if loop.index != 1 %}
