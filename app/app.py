@@ -121,7 +121,7 @@ def login():
     else:
         return render_template("login.html",user=session.get('username'), action="/login", name="Login")
 
-    
+
 # Logout function
 @app.route("/logout")
 def logout():
@@ -133,11 +133,11 @@ def logout():
 @app.route("/edit",methods=["GET","POST"])
 def edit_blog():
     if request.method == "POST":
-        
+
     else:
         if 'a' in request.args and 'id' in request.args:
             return render_template("edit.html",name,content)
-''' 
+'''
 
 
 # Code to view all blogs/blogs for one user
@@ -171,7 +171,7 @@ def random_blog():
     chosenRow = randint(0,len(allRows)-1)
     bid = allRows[chosenRow][3]
     author = allRows[chosenRow][2]
-    
+
     db.close()
     return redirect("/view?a=" + author + "&id=" + str(bid));
 
@@ -189,17 +189,12 @@ def view_blog():
         if (f != None):
             f = "blogs/" + str(f[0]) + ".txt"
             file = open(f)
-<<<<<<< HEAD
-            contents = file.read()
-            return render_template("view.html",user=session.get('username'),title=name,byUser=request.args['a'],blog_content=contents,blog_id=request.args['id']) #contents
-=======
             entries = file.read().split("\n\t\t\t\t\t\t\t\t\n")
             #print (entries);
             entrieslines = list()
             for entry in entries:
                 entrieslines.append(entry.split("\n"))
             return render_template("view.html",user=session.get('username'),title=name,byUser=request.args['a'],blog_content=entrieslines) #contents
->>>>>>> 14f9205b173674f89821243f770e4ece0ff5e39f
     return render_template("index.html",user=session.get('username'), message = "Blog doesn't exist!")
 
 
@@ -207,7 +202,7 @@ def view_blog():
 def create_blog():
     if 'username' in session:
         if request.method == "POST":
-        
+
             if (len(request.form['name']) > 30):
                 return render_template("create.html",user=session.get('username'))
             if (len(request.form['contents']) > 6000):
@@ -245,15 +240,15 @@ def update_blog():
             file.write(request.form['contents'])
             file.close()
             return redirect("/view?a=" + str(session['username']) + "&id=" + request.form['bid']);
-        
+
         db = sqlite3.connect(MAIN_DB)
         c = db.cursor()
         c.execute("""SELECT * FROM BLOGS WHERE AUTHOR = ?;""",(session['username'],))
         blogs = c.fetchall()
         db.close()
         return render_template("update.html",user=session.get('username'),blogs=blogs)
-    return render_template("index.html", message = "Must be logged in to create a blog!") 
-    
+    return render_template("index.html", message = "Must be logged in to create a blog!")
+
 
 if __name__ == "__main__":
     app.debug = True
