@@ -107,14 +107,12 @@ def login():
             c.execute("""SELECT HASH FROM USERS WHERE USERNAME = ?;""",
                       (request.form['username'],))
             hashed = c.fetchone()  # [0]
-            print("Hashed: " + str(hashed))
             db.close()
             if (hashed == None):
                 return render_template("login.html",user=session.get('username'), name="Login", action="/login", error="User does not exist.")
             else:
                 if werkzeug.security.check_password_hash(hashed[0],request.form['password']):
                     session['username'] = request.form['username']
-                    #print(str(session))
                     return render_template("index.html",user=session.get('username'), message="Logged in!")
                 else:
                     return render_template("login.html",user=session.get('username'), name="Login", action="/login", error="Password is incorrect")
@@ -129,6 +127,8 @@ def login():
 def logout():
     session.pop('username', default=None)
     return redirect("/")
+
+
 '''
 @app.route("/edit",methods=["GET","POST"])
 def edit_blog():
@@ -137,7 +137,8 @@ def edit_blog():
     else:
         if 'a' in request.args and 'id' in request.args:
             return render_template("edit.html",name,content)
-   ''' 
+''' 
+
 
 # Code to view all blogs/blogs for one user
 @app.route("/all")
@@ -148,8 +149,7 @@ def all_blogs():
 
     my = False;
     # my_blog function
-    print(request.args);
-    if ('a' in request.args and request.args['a'] == 't' and 'username' in session):
+    if (request.args.get('a') == 't' and 'username' in session):
         c.execute("SELECT * FROM BLOGS WHERE AUTHOR = ?;",(session['username'],));
         results = c.fetchall();
         my = True
@@ -157,7 +157,7 @@ def all_blogs():
         c.execute("SELECT * FROM BLOGS;");
         results = c.fetchall();
     db.close()
-    #return str(results)
+
     return render_template("all.html",user=session.get('username'),my=my,blogs=results)
 
 @app.route("/random")
@@ -171,7 +171,7 @@ def random_blog():
     chosenRow = randint(0,len(allRows)-1)
     bid = allRows[chosenRow][3]
     author = allRows[chosenRow][2]
-    print(allRows[chosenRow])
+    
     db.close()
     return redirect("/view?a=" + author + "&id=" + str(bid));
 
@@ -189,8 +189,17 @@ def view_blog():
         if (f != None):
             f = "blogs/" + str(f[0]) + ".txt"
             file = open(f)
+<<<<<<< HEAD
             contents = file.read()
             return render_template("view.html",user=session.get('username'),title=name,byUser=request.args['a'],blog_content=contents,blog_id=request.args['id']) #contents
+=======
+            entries = file.read().split("\n\t\t\t\t\t\t\t\t\n")
+            #print (entries);
+            entrieslines = list()
+            for entry in entries:
+                entrieslines.append(entry.split("\n"))
+            return render_template("view.html",user=session.get('username'),title=name,byUser=request.args['a'],blog_content=entrieslines) #contents
+>>>>>>> 14f9205b173674f89821243f770e4ece0ff5e39f
     return render_template("index.html",user=session.get('username'), message = "Blog doesn't exist!")
 
 
@@ -198,6 +207,11 @@ def view_blog():
 def create_blog():
     if 'username' in session:
         if request.method == "POST":
+        
+            if (len(request.form['name']) > 30):
+                return render_template("create.html",user=session.get('username'))
+            if (len(request.form['contents']) > 6000):
+                return render_template("create.html",user=session.get('username'))
             db = sqlite3.connect(MAIN_DB)
             c = db.cursor()
             c.execute("""SELECT ROWID FROM BLOGS WHERE AUTHOR = ?;""",(session['username'],))
@@ -215,6 +229,31 @@ def create_blog():
             return redirect("/view?a=" + str(session['username']) + "&id=" + str(bid));
         return render_template("create.html",user=session.get('username'))
     return render_template("index.html", message = "Must be logged in to create a blog!")
+
+@app.route("/update",methods=['GET','POST'])
+def update_blog():
+    if 'username' in session:
+        if request.method == "POST":
+            db = sqlite3.connect(MAIN_DB)
+            c = db.cursor()
+            c.execute("""SELECT ROWID FROM BLOGS WHERE AUTHOR = ? AND BID = ?;""",(session['username'],int(request.form['bid']),))
+            filename = "blogs/" + str(c.fetchone()[0]) + ".txt"
+            db.close()
+            print(filename)
+            file = open(filename,"a")
+            file.write("\n\t\t\t\t\t\t\t\t\n")
+            file.write(request.form['contents'])
+            file.close()
+            return redirect("/view?a=" + str(session['username']) + "&id=" + request.form['bid']);
+        
+        db = sqlite3.connect(MAIN_DB)
+        c = db.cursor()
+        c.execute("""SELECT * FROM BLOGS WHERE AUTHOR = ?;""",(session['username'],))
+        blogs = c.fetchall()
+        db.close()
+        return render_template("update.html",user=session.get('username'),blogs=blogs)
+    return render_template("index.html", message = "Must be logged in to create a blog!") 
+    
 
 if __name__ == "__main__":
     app.debug = True

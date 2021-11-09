@@ -15,7 +15,9 @@
   <p> What will you do today? </p>
   <ul>
     <div id = "mainlinks">
-      <li>My Blogs</li>
+      {%if user %}
+	  <li><a href="/all?a=t">My Blogs</a></li>
+	  {% endif %}
       <li><a href="/all">All Blogs</a></li>
       <li><a href="/random">Random Blog</a></li>
     </div>

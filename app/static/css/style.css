@@ -129,7 +129,9 @@ textarea:focus {
   list-style-type: none;
 }
 
-/*---------------------viewing css---------------------*/
+#update {
+  font-size: 14px;
+}
 
 /*---------------------error css---------------------*/
 

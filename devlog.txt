@@ -103,6 +103,7 @@ cameronN -- 2021-11-5 9:13
 
 Generated new design doc
 
+
 alifA -- 2021-11-5 9:20
 
 Added heading to devlog.
@@ -111,4 +112,21 @@ Under Cameron's guidance, modified all_blogs function to be able to display a us
 kevinC -- 2021-11-5 9:21
 
 Fixed some css. Made the input for create blog a text area. Added a scroll bar.
+
+
+cameronN -- 2021-11-6 12:50
+
+Fixed my blogs (/all) page and all.html template
+
+cameronN -- 2021-11-7 11:53
+
+Allowed user to add additional entries to their blog and allow other users to view those entries
+
+jonathanW -- 2021-11-8 9:07
+
+Minor updates to html files and css.
+
+cameronN -- 2021-11-8 9:20
+
+Made whitespace display properly while viewing blogs
 
