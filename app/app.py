@@ -129,7 +129,15 @@ def login():
 def logout():
     session.pop('username', default=None)
     return redirect("/")
-
+'''
+@app.route("/edit",methods=["GET","POST"])
+def edit_blog():
+    if request.method == "POST":
+        
+    else:
+        if 'a' in request.args and 'id' in request.args:
+            return render_template("edit.html",name,content)
+   ''' 
 
 # Code to view all blogs/blogs for one user
 @app.route("/all")
@@ -182,7 +190,7 @@ def view_blog():
             f = "blogs/" + str(f[0]) + ".txt"
             file = open(f)
             contents = file.read()
-            return render_template("view.html",user=session.get('username'),title=name,byUser=request.args['a'],blog_content=contents) #contents
+            return render_template("view.html",user=session.get('username'),title=name,byUser=request.args['a'],blog_content=contents,blog_id=request.args['id']) #contents
     return render_template("index.html",user=session.get('username'), message = "Blog doesn't exist!")
 
 
