@@ -231,6 +231,9 @@ def update_blog():
         if request.method == "POST":
             db = sqlite3.connect(MAIN_DB)
             c = db.cursor()
+            c.execute("""SELECT ROWID FROM BLOGS WHERE AUTHOR = ?;""",(session['username'],))
+            if (c.fetchone() == None):
+                return render_template("index.html",user=session.get('username'), message="You have no blogs!")
             c.execute("""SELECT ROWID FROM BLOGS WHERE AUTHOR = ? AND BID = ?;""",(session['username'],int(request.form['bid']),))
             filename = "blogs/" + str(c.fetchone()[0]) + ".txt"
             db.close()
