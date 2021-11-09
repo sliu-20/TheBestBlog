@@ -103,9 +103,16 @@ cameronN -- 2021-11-5 9:13
 
 Generated new design doc
 
+
+alifA -- 2021-11-5 9:20
+
+Added heading to devlog.
+Under Cameron's guidance, modified all_blogs function to be able to display a user's own blogs and all blogs on the website with the function all_blogs. 
+
 kevinC -- 2021-11-5 9:21
 
 Fixed some css. Made the input for create blog a text area. Added a scroll bar.
+
 
 cameronN -- 2021-11-6 12:50
 
@@ -122,3 +129,4 @@ Minor updates to html files and css.
 cameronN -- 2021-11-8 9:20
 
 Made whitespace display properly while viewing blogs
+

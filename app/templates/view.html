@@ -4,6 +4,12 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
+<<<<<<< HEAD
+    <h1> {{ title }} </h1>
+    <h4> By {{ byUser }} </h4>
+    {{ blog_content }}
+    <a href="/edit?a={{ byUser }}&id={{ blog_id }}">
+=======
     <h1> {{title}} </h1>
     <h4> By {{byUser}} </h4>
     {% for entry in blog_content|reverse %}
@@ -15,4 +21,5 @@
              	  <br>
 		{% endfor %}
 	{% endfor %}
+>>>>>>> 14f9205b173674f89821243f770e4ece0ff5e39f
 {% endblock %}
