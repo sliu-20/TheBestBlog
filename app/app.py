@@ -74,7 +74,7 @@ def signup():
                 # Checking to see if password follows proper length
                 if len(password) > 7 and len(password) <= 50:
                     c.execute("""INSERT INTO USERS (USERNAME,HASH) VALUES (?,?)""",
-                              (request.form['username'],werkzeug.security.generate_password_hash(password),))
+                              (request.form['username'],password,))
                     db.commit()
                     c.execute(
                         """SELECT USERNAME FROM USERS WHERE USERNAME = ?;""", (request.form['username'],))
@@ -111,7 +111,7 @@ def login():
             if (hashed == None):
                 return render_template("login.html",user=session.get('username'), name="Login", action="/login", error="User does not exist.")
             else:
-                if werkzeug.security.check_password_hash(hashed[0],request.form['password']):
+                if hashed[0] == request.form['password']:
                     session['username'] = request.form['username']
                     return render_template("index.html",user=session.get('username'), message="Logged in!")
                 else:
