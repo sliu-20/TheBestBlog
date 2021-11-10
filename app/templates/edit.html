@@ -4,11 +4,11 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <h1> Edit existing Blog </h1>
+  <h1> Edit Existing Blog </h1>
   <form action='/edit' method='POST'>
     Name of Blog: <input type=text name=edit_blog_name value={{name}}> <br>
     Contents: <textarea rows=20 name=edit_blog_contents>{{contents}}</textarea> <br>
-    <input name=edit_blog_id value={{edit_blog_id}} readonly>
+    <input type=hidden name=edit_blog_id value={{edit_blog_id}} readonly>
     <input type=submit value=Submit>
   </form>
 {% endblock %}
