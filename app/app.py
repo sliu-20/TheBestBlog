@@ -129,15 +129,28 @@ def logout():
     return redirect("/")
 
 
-'''
 @app.route("/edit",methods=["GET","POST"])
 def edit_blog():
     if request.method == "POST":
-
+        db = sqlite3.connect(MAIN_DB)
+        c = db.cursor()
+        f = open("blogs/"+str(request.form['edit_blog_id'])+".txt",'w')
+        f.write(request.form['edit_blog_contents'])
+        f.close()
+        db.close()
+        return render_template("index.html",user=session.get('username'), message="Successfully Edited Blog!")
     else:
         if 'a' in request.args and 'id' in request.args:
-            return render_template("edit.html",name,content)
-'''
+            db = sqlite3.connect(MAIN_DB)
+            c = db.cursor()
+            c.execute("SELECT ROWID FROM BLOGS WHERE AUTHOR = ? AND BID = ?;",(request.args['a'],request.args['id'],))
+            blog_id = c.fetchone()[0]
+            c.execute("SELECT NAME FROM BLOGS WHERE AUTHOR = ? AND BID = ?;",(request.args['a'],request.args['id'],))
+            blog_name = c.fetchone()[0]
+            f = open("blogs/"+str(blog_id)+".txt")
+            blog_contents = f.read()
+            db.close()
+            return render_template("edit.html", name = blog_name, contents = blog_contents, edit_blog_id = blog_id)
 
 
 # Code to view all blogs/blogs for one user

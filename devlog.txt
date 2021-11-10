@@ -140,3 +140,8 @@ fixed bug when trying to update when you have no blogs
 cameronN -- 2021-11-9 9:48
 
 made it so when you go to update your blogs from a specific blog that blog is the default selection
+
+alifA -- 2021-11-9 20:09
+
+Finished version 0 of editing blog functionality of website. 
+Added edit.html template 
