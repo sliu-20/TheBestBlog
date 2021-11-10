@@ -4,6 +4,10 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
+  <!-- This page shows a different form depending on if a user is trying to
+  sign up or log in. Once they sign up succesfully, it redirects them log in.
+  Once they loged in, they are redirected to the home page. If there are any
+  errors to the log in or sign up, it prints the error on the top of the page-->
   <h1> Please {{ name }} </h1>
   <div id = "error_message">
     <p> {{error}} <p>

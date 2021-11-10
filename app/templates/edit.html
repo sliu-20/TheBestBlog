@@ -4,6 +4,9 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
+  <!-- This displays a form where you can edit an entry to a blog. It only has
+  a textarea and a submit button. In the textarea, it shows the current entry
+  which you can modify. -->
   <h1> Edit Existing Blog </h1>
   <form action='/edit' method='POST'>
     Name of Blog: <input type=text name=edit_blog_name value={{name}}> <br>

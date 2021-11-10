@@ -4,6 +4,7 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
+  <!-- Prints a greeting with a username if they are logged in -->
   {% if user %}
   <h1>Welcome to The Best Blog, <u>{{ user }}</u>. </h1>
   {% else %}
@@ -12,6 +13,7 @@
   <div id = "error_message">
     {{ message }}
   </div>
+  <!-- Shows a list of links/things to do on the website -->
   <p> What will you do today? </p>
   <ul>
     <div id = "mainlinks">

@@ -148,4 +148,8 @@ Added edit.html template
 
 jonathanW -- 2021-11-10 8:58
 
-Minor edits to the edit.html page. 
+Minor edits to the edit.html page.
+
+kevinC -- 2021-11-10 9:24
+
+Add comments to all html templates explaining what everything does.
