@@ -143,5 +143,9 @@ made it so when you go to update your blogs from a specific blog that blog is th
 
 alifA -- 2021-11-9 20:09
 
-Finished version 0 of editing blog functionality of website. 
-Added edit.html template 
+Finished version 0 of editing blog functionality of website.
+Added edit.html template
+
+jonathanW -- 2021-11-10 8:58
+
+Minor edits to the edit.html page. 
