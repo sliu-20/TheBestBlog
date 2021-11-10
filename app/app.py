@@ -1,9 +1,7 @@
 import os
 import sqlite3
-import re
 from flask import Flask, render_template, request, session, redirect
 from random import randint
-import werkzeug.security
 
 MAIN_DB = "blogs.db"
 
@@ -34,6 +32,15 @@ db.close()
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
+def isAlphaNum(string):
+    """
+    returns whether a string is alpha numeric
+    """
+    for char in string:
+        o = ord(char)
+        if not ((0x41 <= o <= 0x5A) or (0x61 <= o <= 0x7A) or (0x30 <= o <= 0x39)):
+            return False;
+    return True;
 
 # Function to render homepage
 @app.route("/")
@@ -58,7 +65,7 @@ def signup():
             if (exists == None):
                 username = (request.form['username']).encode('utf-8')
                 # Check to see if user follows formatting
-                if re.match('^[a-zA-Z 0-9\_]*$', username.decode('utf-8')) == None:
+                if isAlphaNum(username.decode('utf-8')) == None:
                     db.close()
                     return render_template("login.html", user=session.get('username'), action="/signup", name="Sign Up", error="Username can only contain alphanumeric characters and underscores.")
                 # Check to see if username is of proper length
@@ -134,9 +141,11 @@ def edit_blog():
     if request.method == "POST":
         db = sqlite3.connect(MAIN_DB)
         c = db.cursor()
+        
         f = open("blogs/"+str(request.form['edit_blog_id'])+".txt",'w')
         f.write(request.form['edit_blog_contents'])
         f.close()
+        db.commit()
         db.close()
         return render_template("index.html",user=session.get('username'), message="Successfully Edited Blog!")
     else:
@@ -147,10 +156,10 @@ def edit_blog():
             blog_id = c.fetchone()[0]
             c.execute("SELECT NAME FROM BLOGS WHERE AUTHOR = ? AND BID = ?;",(request.args['a'],request.args['id'],))
             blog_name = c.fetchone()[0]
-            f = open("blogs/"+str(blog_id)+".txt")
-            blog_contents = f.read()
+            f = open("blogs/"+ str(blog_id) +".txt")
+            blog_contents = f.read().split("\n\t\t\t\t\t\t\t\t\n")
             db.close()
-            return render_template("edit.html", name = blog_name, contents = blog_contents, edit_blog_id = blog_id)
+            return render_template("edit.html", name = blog_name, contents = blog_contents, author = request.args['a'], bid = request.args['id'])
 
 
 # Code to view all blogs/blogs for one user
