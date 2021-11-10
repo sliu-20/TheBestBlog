@@ -4,18 +4,18 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-    <h1> {{ title }} </h1>
-    <h4> By {{ byUser }} </h4>
-    {% if byUser == user %}
-    <a id="update" href="/update?s={{ blog_id }}">(Update)</a> <a id="update" href="/edit?a={{ byUser }}&id={{ blog_id }}">(Edit)</a> <br><br>
+  <h1> {{ title }} </h1>
+  <h4> By {{ byUser }} </h4>
+  {% if byUser == user %}
+  <a id="update" href="/update?s={{ blog_id }}">(Update)</a> <a id="update" href="/edit?a={{ byUser }}&id={{ blog_id }}">(Edit)</a> <br><br>
+  {% endif %}
+  {% for entry in blog_content|reverse %}
+    {% if loop.index != 1 %}
+    <br> <hr> <br>
     {% endif %}
-    {% for entry in blog_content|reverse %}
-		{% if loop.index != 1 %}
-		<br> <hr> <br>
-		{% endif %}
-		{% for i in entry %}
-		  {{ i }}
-             	  <br>
-		{% endfor %}
+    {% for i in entry %}
+      {{ i }}
+      <br>
+    {% endfor %}
 	{% endfor %}
 {% endblock %}
