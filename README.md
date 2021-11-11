@@ -8,7 +8,8 @@ Jonathan Wu - HTML/Jinja/CSS Frontend
 
 ## About
 
-**insert here **
+TheBestBlog is a blog hosting site. Signed up & logged in users can create blogs, update their blogs by adding new entries, and edit existing entries for their blogs.
+Non-logged in users can view all blogs, a specific blog, or a random blog.
 
 ## Install Instructions:
 
