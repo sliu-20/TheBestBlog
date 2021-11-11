@@ -34,7 +34,7 @@ app.secret_key = os.urandom(32)
 
 def isAlphaNum(string):
     """
-    returns whether a string is alpha numeric
+    returns whether a string is alphanumeric
     """
     for char in string:
         o = ord(char)
@@ -45,12 +45,19 @@ def isAlphaNum(string):
 # Function to render homepage
 @app.route("/")
 def home_page():
+    """
+        Homepage
+    """
     return render_template("index.html", user=session.get('username'))
 
 
 # Signup function
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
+    """
+        If method = GET, render page to new username & password
+        If method = POST, attempts to sign up user, if successful renders login data
+    """
     # Obtaining query from html form
     if request.method == "POST":
         # Checking if required values in query exist using key values
@@ -105,6 +112,10 @@ def signup():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    """
+        If method = GET, render page to enter login info
+        If method = POST, attempts to login user with posted data
+    """
     if request.method == "POST":
         if 'username' in session:
             return render_template("index.html", user=session.get('username'), message="Already logged in!")
@@ -132,13 +143,23 @@ def login():
 # Logout function
 @app.route("/logout")
 def logout():
+    """ 
+        Logouts user 
+    """
     session.pop('username', default=None)
     return redirect("/")
 
 
 @app.route("/edit",methods=["GET","POST"])
 def edit_blog():
+    """
+        If method is get, this returns a page where the user can choose which entry to edit 
+        If method is POST, takes data and edits page
+        If a user isn't logged in or they try to edit someone else's blog, renders an error message
+    """
     if 'username' in session and session['username'] == request.args['a']:
+        if request.args['a'] != session['username']:
+            return render_template("index.html", user=session.get('username'), message="You can only edit your own blogs!")
         if request.method == "POST":
             db = sqlite3.connect(MAIN_DB)
             c = db.cursor()
@@ -172,13 +193,16 @@ def edit_blog():
                 return render_template("edit.html", name = blog_name, contents = blog_contents, num_entries = len(blog_contents), author = request.args['a'], bid = request.args['id'])
             else:
                 return redirect("/")
-    else:
-        return render_template("index.html", message="Must be logged in to edit a blog!")
+    return render_template("index.html", message="Must be logged in to edit a blog!")
     
 
 # Code to view all blogs/blogs for one user
 @app.route("/all")
 def all_blogs():
+    """
+        If route has no get arguments, return all blogs from the site 
+        If route includes '?a=t', return user's blogs only
+    """
     results = list()
     db = sqlite3.connect(MAIN_DB)
     c = db.cursor()
@@ -200,6 +224,9 @@ def all_blogs():
 
 @app.route("/random")
 def random_blog():
+    """
+        Redirect user to a random blog 
+    """
     db = sqlite3.connect(MAIN_DB)
     c = db.cursor()
     c.execute("SELECT * FROM BLOGS")
@@ -243,6 +270,11 @@ def view_blog():
 
 @app.route("/create", methods=['GET', 'POST'])
 def create_blog():
+    """ 
+        If user is logged in:
+        if method = GET render a page to input the blogs name and the first entry
+        if method = POST create the blog and redirect them to said blog
+    """
     if 'username' in session:
         if request.method == "POST":
             if (len(request.form['name']) > 30):
@@ -273,6 +305,11 @@ def create_blog():
 
 @app.route("/update", methods=['GET', 'POST'])
 def update_blog():
+    """ 
+        If user is logged in:
+        if method = GET render a page choose a blog to update and type a new entry
+        if method = POST create the blog and redirect them to said blog
+    """
     if 'username' in session:
         db = sqlite3.connect(MAIN_DB)
         c = db.cursor()
