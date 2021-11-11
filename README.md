@@ -8,6 +8,7 @@ Jonathan Wu - HTML/Jinja/CSS Frontend
 
 ## About
 
+**insert here **
 
 ## Install Instructions:
 
