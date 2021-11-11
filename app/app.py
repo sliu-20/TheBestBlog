@@ -148,10 +148,11 @@ def edit_blog():
             f = open(filename,'r')
             entries = f.read().split("\n\t\t\t\t\t\t\t\t\n")
             f.close()
+            print(request.form["edit_blog_contents"])
             entries[int(request.form["edit_bid"])] = request.form["edit_blog_contents"]
             f = open(filename,'w')
             seperator = "\n\t\t\t\t\t\t\t\t\n"
-            f.write(seperator.join(entries))
+            f.write(seperator.join(entries).replace("\r",""))
             f.close()
             db.close()
             return redirect("/view?a=" + request.args['a'] + "&id=" + request.args['id'])
@@ -163,14 +164,16 @@ def edit_blog():
                 blog_id = c.fetchone()[0]
                 c.execute("SELECT NAME FROM BLOGS WHERE AUTHOR = ? AND BID = ?;",(request.args['a'],request.args['id'],))
                 blog_name = c.fetchone()[0]
+                db.close()
                 f = open("blogs/"+ str(blog_id) +".txt")
                 blog_contents = f.read().split("\n\t\t\t\t\t\t\t\t\n")
-                db.close()
+                for entry in blog_contents:
+                    string = ""
                 return render_template("edit.html", name = blog_name, contents = blog_contents, num_entries = len(blog_contents), author = request.args['a'], bid = request.args['id'])
             else:
                 return redirect("/")
     else:
-        return render_template("index.html", message="Must be logged in to create a blog!")
+        return render_template("index.html", message="Must be logged in to edit a blog!")
     
 
 # Code to view all blogs/blogs for one user
@@ -229,13 +232,11 @@ def view_blog():
         db.close()
         if (f != None):
             f = "blogs/" + str(f[0]) + ".txt"
-            file = open(f)
+            file = open(f,"r")
             entries = file.read().split("\n\t\t\t\t\t\t\t\t\n")
-            #print (entries);
             entrieslines = list()
             for entry in entries:
-                entrieslines.append(entry.split("\n"))
-            # contents
+                entrieslines.append(entry.split('\n'))
             return render_template("view.html", user=session.get('username'), title=name, blog_id=request.args['id'], byUser=request.args['a'], blog_content=entrieslines)
     return render_template("index.html", user=session.get('username'), message="Blog doesn't exist!")
 
@@ -244,7 +245,6 @@ def view_blog():
 def create_blog():
     if 'username' in session:
         if request.method == "POST":
-
             if (len(request.form['name']) > 30):
                 return render_template("create.html", user=session.get('username'))
             if (len(request.form['contents']) > 6000):
@@ -306,7 +306,7 @@ def update_blog():
 
         return render_template("update.html", user=session.get('username'), blogs=blogs, selectedid=selectedid)
 
-    return render_template("index.html", message="Must be logged in to create a blog!")
+    return render_template("index.html", message="Must be logged in to update a blog!")
 
 
 if __name__ == "__main__":

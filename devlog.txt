@@ -161,3 +161,7 @@ Started editing edit so that each entry can be edited seperately
 cameronN -- 2021-11-11 13:47
 
 Finished edit backend code
+
+cameronN -- 2021-11-11 15:30
+
+Fixed bug of doubling newlines and changed submit button on entry to "Edit entry"
