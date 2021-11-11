@@ -6,7 +6,10 @@ Alif Abdullah - Python/SQLite3/Backend
 Kevin Cao - HTML/Jinja/CSS Frontend
 Jonathan Wu - HTML/Jinja/CSS Frontend
 
-Install Instructions:
+## About
+
+
+## Install Instructions:
 
 Run the following commands in a terminal shell with git and python installed:
 
