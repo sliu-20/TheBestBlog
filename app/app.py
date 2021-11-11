@@ -138,29 +138,40 @@ def logout():
 
 @app.route("/edit",methods=["GET","POST"])
 def edit_blog():
-    if request.method == "POST":
-        db = sqlite3.connect(MAIN_DB)
-        c = db.cursor()
-        
-        f = open("blogs/"+str(request.form['edit_blog_id'])+".txt",'w')
-        f.write(request.form['edit_blog_contents'])
-        f.close()
-        db.commit()
-        db.close()
-        return render_template("index.html",user=session.get('username'), message="Successfully Edited Blog!")
-    else:
-        if 'a' in request.args and 'id' in request.args:
+    if 'username' in session and session['username'] == request.args['a']:
+        if request.method == "POST":
             db = sqlite3.connect(MAIN_DB)
             c = db.cursor()
-            c.execute("SELECT ROWID FROM BLOGS WHERE AUTHOR = ? AND BID = ?;",(request.args['a'],request.args['id'],))
-            blog_id = c.fetchone()[0]
-            c.execute("SELECT NAME FROM BLOGS WHERE AUTHOR = ? AND BID = ?;",(request.args['a'],request.args['id'],))
-            blog_name = c.fetchone()[0]
-            f = open("blogs/"+ str(blog_id) +".txt")
-            blog_contents = f.read().split("\n\t\t\t\t\t\t\t\t\n")
+            print(request.args)
+            c.execute("""SELECT ROWID FROM BLOGS WHERE AUTHOR = ? AND BID = ?;""",(request.args['a'],request.args['id'],))
+            filename = "blogs/" + str(c.fetchone()[0]) + ".txt" 
+            f = open(filename,'r')
+            entries = f.read().split("\n\t\t\t\t\t\t\t\t\n")
+            f.close()
+            entries[int(request.form["edit_bid"])] = request.form["edit_blog_contents"]
+            f = open(filename,'w')
+            seperator = "\n\t\t\t\t\t\t\t\t\n"
+            f.write(seperator.join(entries))
+            f.close()
             db.close()
-            return render_template("edit.html", name = blog_name, contents = blog_contents, author = request.args['a'], bid = request.args['id'])
-
+            return redirect("/view?a=" + request.args['a'] + "&id=" + request.args['id'])
+        else:
+            if 'a' in request.args and 'id' in request.args:
+                db = sqlite3.connect(MAIN_DB)
+                c = db.cursor()
+                c.execute("SELECT ROWID FROM BLOGS WHERE AUTHOR = ? AND BID = ?;",(request.args['a'],request.args['id'],))
+                blog_id = c.fetchone()[0]
+                c.execute("SELECT NAME FROM BLOGS WHERE AUTHOR = ? AND BID = ?;",(request.args['a'],request.args['id'],))
+                blog_name = c.fetchone()[0]
+                f = open("blogs/"+ str(blog_id) +".txt")
+                blog_contents = f.read().split("\n\t\t\t\t\t\t\t\t\n")
+                db.close()
+                return render_template("edit.html", name = blog_name, contents = blog_contents, num_entries = len(blog_contents), author = request.args['a'], bid = request.args['id'])
+            else:
+                return redirect("/")
+    else:
+        return render_template("index.html", message="Must be logged in to create a blog!")
+    
 
 # Code to view all blogs/blogs for one user
 @app.route("/all")

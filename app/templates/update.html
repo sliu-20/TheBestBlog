@@ -5,11 +5,14 @@
 {% endblock %}
 {% block content %}
 	<br>
+    <!-- Shows you a form where you are allowed to change any of the blogs that
+    you own. If you click update on a blog that you own, the blog you are
+    updating defaults to the blog that you were on. -->
 	<form action="/update" method="POST">
         Blog to update:
         <select name="bid">
 			{% for item in blogs %}
-			<option value="{{ item[3] }}" 
+			<option value="{{ item[3] }}"
 			{% if item[3] == selectedid %} selected	{% endif %}
 			>{{ item[1] }}</option>
 			{% endfor %}

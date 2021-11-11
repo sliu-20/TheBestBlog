@@ -4,6 +4,8 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
+  <!-- Checks to see if user clicked on "my blogs" or "all blogs" and display
+  the according list -->
   {% if my == true -%}
     <h1> Your Blogs <a id="update" href="/update"> (Update) </a> </h1>
     {% for item in blogs %}

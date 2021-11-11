@@ -2,11 +2,14 @@
 <link rel="stylesheet" href="/static/css/style.css" />
 <html>
   <head>
+    <!-- Allows for each child page to have a different title -->
     {% block head %}
     <title>{% block title %}{% endblock %}</title>
     {% endblock %}
   </head>
   <body>
+    <!-- Creates the Navigation bar which changes dynamically depending if user
+    is logged in or not-->
     <nav>
       <div class="innernav">
         <a id="home" href="/"> Home </a>
@@ -22,11 +25,14 @@
         </div>
       </div>
     </nav>
+    <!-- Leaves a specific space for the body content which every child template
+    can change-->
     <content>
       <div class="bodycontent">
         {% block content %} {% endblock %}
       </div>
     </content>
+    <!-- Creates a footer which displays on the bottom of every page -->
     <footer>
       {% block footer %} Created by: The Best Cameron | Cameron Nelson, Kevin
       Cao, Alif Abdullah, Jonathan Wu {% endblock %}
