@@ -9,7 +9,8 @@ Jonathan Wu - HTML/Jinja/CSS Frontend
 ## About
 * TheBestBlog is a blog hosting site. 
 
-* On the homepage, all users are greeted to TheBestBlog, with logged in users being addressed by their username. 		* Users who are not logged in may register an account and/or login. Logged in users have the ability to create a new blog and logout. 
+* On the homepage, all users are greeted to TheBestBlog, with logged in users being addressed by their username. 		
+	* Users who are not logged in may register an account and/or login. Logged in users have the ability to create a new blog and logout. 
 	* All users, logged in or not, are able to view all blogs stored in the site's databases, or can view a random blog. Only logged in users can create new blogs and check out their own blogs. 
 
 * Clicking My Blogs or All Blogs on the home page brings you to a page with a list of blogs. 
