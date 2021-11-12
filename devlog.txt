@@ -169,4 +169,8 @@ Fixed bug of doubling newlines and changed submit button on entry to "Edit entry
 cameronN -- 2021-11-11 17:52
 
 Added docstrings 
+
+alifA -- 2021-11-11 20:15
+
+Expanded upon the About Section in README.md file
  
