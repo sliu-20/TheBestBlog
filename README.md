@@ -20,7 +20,7 @@ Jonathan Wu - HTML/Jinja/CSS Frontend
 		* Viewers who are not logged in or viewers who did not make the blog can only view the blog's name and contents.
 		* Viewers who have made the blog have the option to edit and update their blog.
 
-* Clicking Random Blog brings you directly to a random blog, where the rules mentioned regarding viewing, editing, and updating blogs still apply.
+* Clicking Random Blog brings users directly to a random blog, where the rules mentioned regarding viewing, editing, and updating blogs still apply.
 
 ## Install Instructions:
 
