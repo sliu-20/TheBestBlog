@@ -170,7 +170,10 @@ cameronN -- 2021-11-11 17:52
 
 Added docstrings 
 
+cameronN -- 2021-11-11 18:32
+
+new design doc
+
 alifA -- 2021-11-11 20:15
 
-Expanded upon the About Section in README.md file
- 
+Expanded upon the About Section in README.md file 
