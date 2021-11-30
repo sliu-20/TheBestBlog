@@ -1,167 +1,46 @@
-/*------------------navigation bar css---------------------*/
-nav {
-  position: absolute;
-  flex-direction: row;
-  display: flex;
-  flex-wrap: wrap;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 5%;
-  background-color: #87ceeb;
-}
+/*
+Team Caffeine: Sophie Liu, Ryan Wang
+SoftDev
+K20: Throw Some Forking STUYLE On It
+2021-11-29
+ */
 
-.innernav {
-  display: flex;
-  align-items: center;
-  width: 60%;
-  height: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#home,
-#login,
-#signup,
-#create,
-#username,
-#logout {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: black;
-  text-decoration: none;
-}
-
-#home:hover,
-#login:hover,
-#signup:hover,
-#create:hover,
-#logout:hover {
-  transition: all 0.3s ease;
-  background-color: pink;
-  text-shadow: 0px 0px 1px black;
-}
-
-.navbuttons {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-/*--------------------body css---------------------*/
-
-overflow:scroll {
-  overflow-y: scroll;
-}
-
-content {
-  position: absolute;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  top: 5%;
-  left: 0px;
-  height: 90%;
-  width: 100%;
-}
-
-.bodycontent {
-  width: 50%;
-  height: 100%;
-  background-color: white;
-  padding-left: 20px;
-  padding-right: 20px;
-  word-wrap: break-word;
-  overflow-y: auto;
+:root {
+  --black: #0E1116;
+  --blue: #374A67;
+  --blue_grey: #616283;
+  --dark_pink: #A07E9D;
+  --lilac: #CB9CF2;
+  --font: "Fira Mono", monospace;
+  --my-margin: 10px;
 }
 
 body {
-  background-color: #c4ecec;
+  background-color: var(--blue_grey);
+  font-family: var(--font);
+}
+.bodycontent {
+  background-color:var(--dark_pink);
 }
 
-input[type="text"],
-input[type="password"] {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  border: 1px solid black;
-  border-radius: 2px;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  width: 100%;
-  word-wrap: break-word;
+#username {
+  color: var(--blue);
 }
 
-input[type="submit"] {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  background-color: #87ceeb;
-  width: 100%;
-  border: none;
-  padding: 6px 10px;
-  box-sizing: border-box;
+#username::before {
+  content: "USER: ";
+  margin: var(--my-margin)
 }
 
-input[type="submit"]:hover {
-  background-color: pink;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  outline: none;
+u {
+  color: var(--blue);
 }
-
-input[type="text"]:focus,
-input[type="password"]:focus {
-  background-color: #c4ecec;
-  transition: all 0.5s ease;
-  outline: none;
-}
-
-textarea {
-  border: 1px solid black;
-  border-radius: 2px;
-  padding: 12px 20px;
-  width: 100%;
-  box-sizing: border-box;
-  outline: none;
-  resize: none;
-}
-
-textarea:focus {
-  background-color: #c4ecec;
-  transition: all 0.5s ease;
-  outline: none;
-}
-
-#mainlinks {
-  list-style-type: none;
-}
-
-#update {
-  font-size: 14px;
-}
-
-/*---------------------error css---------------------*/
-
-#error_message {
-  color: red;
-  text-decoration: bold;
-}
-
-/*---------------------footer css---------------------*/
 
 footer {
-  position: fixed;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  top: 95%;
-  left: 0%;
-  width: 100%;
-  height: 5%;
-  background-color: #87ceeb;
+  background-color: var(--blue);
+  color: var(--lilac)
+}
+
+nav {
+  background-color: var(--lilac);
 }
